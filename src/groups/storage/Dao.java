@@ -32,7 +32,8 @@ public class Dao extends MyDatabase {
 	@Override
 	protected List<Class<?>> getDatabaseClasses() {
 		return Arrays.asList(
-				Group.class
+				Group.class,
+				Member.class
 		);
 	}
 	
