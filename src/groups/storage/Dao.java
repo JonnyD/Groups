@@ -1,9 +1,12 @@
 package groups.storage;
 
-import java.util.List;
-
 import groups.Groups;
 import groups.manager.ConfigManager;
+import groups.model.Group;
+import groups.model.Member;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Dao extends MyDatabase {
 
@@ -22,11 +25,19 @@ public class Dao extends MyDatabase {
 			configManager.isLogging(),
 			configManager.isRebuild()
 		);
+		
+		generateTables();
 	}
 	
 	@Override
 	protected List<Class<?>> getDatabaseClasses() {
-		return null; //TODO
+		return Arrays.asList(
+				Group.class
+		);
+	}
+	
+	private void generateTables() {
+		//System.out.println(getDatabase().find(Group.class));
 	}
 
 }
