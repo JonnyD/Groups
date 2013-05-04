@@ -1,0 +1,6 @@
+name: Groups
+main: groups.Groups
+version: 0.1
+description: Groups
+author: Gu3rr1lla
+database: false
