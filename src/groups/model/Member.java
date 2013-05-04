@@ -23,7 +23,7 @@ public class Member {
 	@JoinColumn(name = "group_id")
 	private Group group;
 	
-	@Column(name = "player_name", nullable = false)
+	@Column(name = "player_name", nullable = false, length = 16)
 	private String playerName;
 	
 	@Column(name = "role", nullable = false)
