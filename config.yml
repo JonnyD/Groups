@@ -1,0 +1,7 @@
+mysql:
+  username: root
+  host: localhost
+  enable: true
+  password: ''
+  database: bukkit
+  port: 3306
