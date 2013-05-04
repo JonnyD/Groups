@@ -26,7 +26,7 @@ public class Member {
 	@Column(name = "player_name", nullable = false, length = 16)
 	private String playerName;
 	
-	@Column(name = "role", nullable = false)
+	@Column(name = "role", nullable = false, length = 10)
 	private String role = "member";
 	
 	@Column(name = "personal", nullable = false)
