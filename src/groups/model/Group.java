@@ -15,7 +15,7 @@ public class Group {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "name", unique = true, nullable = false)
+	@Column(name = "name", unique = true, nullable = false, length = 16)
 	private String name;
 	
 	public Group() {}
