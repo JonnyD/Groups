@@ -27,7 +27,7 @@ public class Member {
 	private String playerName;
 	
 	@Column(name = "role", nullable = false)
-	private String role = "Member";
+	private String role = "member";
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
