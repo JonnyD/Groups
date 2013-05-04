@@ -11,12 +11,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigManager 
 {	
+	private String driver;
+	private String url;
 	private String username;
-	private String host;
 	private String password;
-	private String database;
-	private String prefix;
-	private int port;
+	private String isolation;
+	private boolean logging;
+	private boolean rebuild;
+	private boolean enableFileLog;
 	
 	private File main;
 	private FileConfiguration config;
@@ -55,12 +57,14 @@ public class ConfigManager
             config.options().copyDefaults(true);
         }
         
-        username = loadString("mysql.username");
-        host     = loadString("mysql.host");
-        password = loadString("mysql.password");
-        database = loadString("mysql.database");
-        prefix   = loadString("mysql.prefix");
-        port     = loadInt("mysql.port");
+        driver = loadString("database.driver");
+        url = loadString("database.url");
+        username = loadString("database.username");
+        password = loadString("database.password");
+        isolation = loadString("database.isolation");
+        logging = loadBoolean("database.logging");
+        rebuild = loadBoolean("database.rebuild");
+        enableFileLog = loadBoolean("database.enableFileLog");
         
         save();
 	}
@@ -135,6 +139,22 @@ public class ConfigManager
             e.printStackTrace();
         }
     }
+    
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public String getUsername() {
 		return username;
@@ -142,14 +162,6 @@ public class ConfigManager
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getHost() {
-		return host;
-	}
-
-	public void setHost(String host) {
-		this.host = host;
 	}
 
 	public String getPassword() {
@@ -160,28 +172,36 @@ public class ConfigManager
 		this.password = password;
 	}
 
-	public String getDatabase() {
-		return database;
+	public String getIsolation() {
+		return isolation;
 	}
 
-	public void setDatabase(String database) {
-		this.database = database;
+	public void setIsolation(String isolation) {
+		this.isolation = isolation;
 	}
 
-	public int getPort() {
-		return port;
+	public boolean isLogging() {
+		return logging;
 	}
 
-	public void setPort(int port) {
-		this.port = port;
+	public void setLogging(boolean logging) {
+		this.logging = logging;
 	}
 
-	public String getPrefix() {
-		return prefix;
+	public boolean isRebuild() {
+		return rebuild;
 	}
 
-	public void setPrefix(String prefix) {
-		this.prefix = prefix;
+	public void setRebuild(boolean rebuild) {
+		this.rebuild = rebuild;
+	}
+
+	public boolean isEnableFileLog() {
+		return enableFileLog;
+	}
+
+	public void setEnableFileLog(boolean enableFileLog) {
+		this.enableFileLog = enableFileLog;
 	}
 
 	public File getMain() {

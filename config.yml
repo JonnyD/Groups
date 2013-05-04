@@ -1,7 +1,9 @@
-mysql:
+database:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/bukkit
   username: root
-  host: localhost
-  enable: true
   password: ''
-  database: bukkit
-  port: 3306
+  isolation: SERIALIZABLE
+  logging: false
+  rebuild: false
+  enablefilelog: false
