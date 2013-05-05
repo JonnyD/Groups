@@ -17,3 +17,6 @@ commands:
   gadd:
     description: Adds a member to a group
     usage: /gadd <group> <player> <type>
+  gremove:
+    description: Removes a member from a group
+    usage: /remove <group> <player>

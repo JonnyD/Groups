@@ -1,6 +1,7 @@
 package groups.manager;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import groups.Groups;
@@ -64,6 +65,11 @@ public class GroupManager {
 		saveGroup(group);
 	}
 	
+	public void removeMember(Group group, Member member) {
+		group.removeMember(member);
+		deleteMember(member);
+	}
+	
 	public void updateGroup(Group group) {
 		dao.update(group);
 	}
@@ -74,6 +80,10 @@ public class GroupManager {
 	
 	public void deleteGroup(Group group) {
 		dao.delete(group);
+	}
+	
+	public void deleteMember(Member member) {
+		dao.delete(member);
 	}
 	
 }
