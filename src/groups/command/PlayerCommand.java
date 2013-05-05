@@ -1,10 +1,12 @@
 package groups.command;
 
 import groups.Groups;
+import groups.manager.GroupManager;
 
 public abstract class PlayerCommand implements Command
 {
 	protected Groups plugin = Groups.getInstance();
+	protected GroupManager groupManager = plugin.getGroupManager();
 	
 	private String name;
 	private String description = "";
