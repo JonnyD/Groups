@@ -23,3 +23,6 @@ commands:
   glistmembers:
     description: List all members of a group
     usage: /glistmembers <group>
+  ginfo:
+    description: Displays information about a group
+    usage: /ginfo <group>
