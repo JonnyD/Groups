@@ -16,6 +16,7 @@ public class GroupManager {
 	public void createGroup(String name, String username) {
 		Group group = new Group(name);
 		Member member = new Member(group, username);
+		member.setRole("admin");
 		group.addMember(member);
 		saveGroup(group);
 	}
