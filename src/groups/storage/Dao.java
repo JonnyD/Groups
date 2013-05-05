@@ -28,7 +28,7 @@ public class Dao extends MyDatabase {
 			configManager.getPassword(),
 			configManager.getIsolation(),
 			configManager.isLogging(),
-			false
+			true
 		);
 		
 		generateTables();
@@ -48,6 +48,10 @@ public class Dao extends MyDatabase {
 	
 	public void save(Object object) {
 		getDatabase().save(object);
+	}
+	
+	public void delete(Object object) {
+		getDatabase().delete(object);
 	}
 	
 	public Map<String, Group> findAllGroups() {

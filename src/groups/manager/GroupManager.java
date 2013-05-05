@@ -47,8 +47,17 @@ public class GroupManager {
 		saveGroup(group);
 	}
 	
+	public void removeGroup(Group group) {
+		groups.remove(group);
+		deleteGroup(group);
+	}
+	
 	public void saveGroup(Group group) {
 		dao.save(group);
+	}
+	
+	public void deleteGroup(Group group) {
+		dao.delete(group);
 	}
 	
 }

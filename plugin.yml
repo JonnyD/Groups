@@ -8,3 +8,6 @@ commands:
   gcreate:
     description: Creates a Group
     usage: /gcreate <name>
+  gdelete:
+    description: Deletes a Group
+    usage: /gdelete <name>
