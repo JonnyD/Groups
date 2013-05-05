@@ -45,6 +45,7 @@ public class Member {
 	private Role role = Role.MEMBER;
 	
 	@Version
+	@Column(name = "update_time", nullable = false)
     Timestamp updatetime;
 	
 	@CreatedTimestamp

@@ -36,7 +36,7 @@ public class Group {
 	private String name;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
-	private List<Member> members;
+	private List<Member> members = new ArrayList<Member>();
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
@@ -46,6 +46,7 @@ public class Group {
 	private Type type = Type.Include;
 	
 	@Version
+	@Column(name = "update_time", nullable = false)
     Timestamp updatetime;
 	
 	@CreatedTimestamp
