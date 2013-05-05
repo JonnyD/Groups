@@ -1,5 +1,6 @@
 package groups.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @Entity
 @Table(name = "groups_group")
@@ -30,6 +33,10 @@ public class Group {
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
 	
+	@CreatedTimestamp
+	@Column(name = "create_time", nullable = false)
+    Timestamp createTime;
+
 	public Group() {}
 	
 	public Group(String name) {
@@ -68,6 +75,14 @@ public class Group {
 
 	public void addMember(Member member) {
 		members.add(member);
+	}
+	
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 	
 	public List<Member> getMembers() {

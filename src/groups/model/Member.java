@@ -1,5 +1,7 @@
 package groups.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @Entity
 @Table(name = "groups_member", uniqueConstraints={
@@ -38,6 +42,10 @@ public class Member {
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "role", nullable = false, length = 10)
 	private Role role = Role.MEMBER;
+	
+	@CreatedTimestamp
+	@Column(name = "create_time", nullable = false)
+    Timestamp createTime;
 	
 	public Member() {}
 	
@@ -83,5 +91,13 @@ public class Member {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 }
