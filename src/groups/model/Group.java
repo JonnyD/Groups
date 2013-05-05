@@ -26,15 +26,19 @@ public class Group {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
 	private List<Member> members = new ArrayList<Member>();
 	
+	@Column(name = "personal", nullable = false)
+	private Boolean personal = false;
+	
 	public Group() {}
 	
 	public Group(String name) {
 		this.name = name;
 	}
 	
-	public Group(Integer id, String name) {
+	public Group(Integer id, String name, Boolean personal) {
 		this.id = id;
 		this.name = name;
+		this.personal = personal;
 	}
 
 	public Integer getId() {
@@ -53,6 +57,14 @@ public class Group {
 		this.name = name;
 	}
 	
+	public Boolean getPersonal() {
+		return personal;
+	}
+
+	public void setPersonal(Boolean personal) {
+		this.personal = personal;
+	}
+
 	public void addMember(Member member) {
 		members.add(member);
 	}

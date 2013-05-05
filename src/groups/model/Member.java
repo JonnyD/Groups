@@ -29,9 +29,6 @@ public class Member {
 	@Column(name = "role", nullable = false, length = 10)
 	private String role = "member";
 	
-	@Column(name = "personal", nullable = false)
-	private Boolean personal = false;
-	
 	public Member() {}
 	
 	public Member(Group group, String playerName) {
@@ -39,12 +36,11 @@ public class Member {
 		this.playerName = playerName;
 	}
 	
-	public Member(Integer id, Group group, String playerName, String role, Boolean personal) {
+	public Member(Integer id, Group group, String playerName, String role) {
 		this.id = id;
 		this.group = group;
 		this.playerName = playerName;
 		this.role = role;
-		this.personal = personal;
 	}
 
 	public Integer getId() {
@@ -77,13 +73,5 @@ public class Member {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-	
-	public Boolean isPersonal() {
-		return personal;
-	}
-	
-	public void setPersonal(Boolean personal) {
-		this.personal = personal;
 	}
 }
