@@ -1,9 +1,7 @@
 package groups.manager;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import groups.Groups;
 import groups.model.Group;
@@ -57,6 +55,17 @@ public class GroupManager {
 	public void removeGroup(Group group) {
 		groups.remove(group);
 		deleteGroup(group);
+	}
+	
+	public void addMember(Group group, String username, Role role) {
+		Member member = new Member(group, username);
+		member.setRole(role);
+		group.addMember(member);
+		saveGroup(group);
+	}
+	
+	public void updateGroup(Group group) {
+		dao.update(group);
 	}
 	
 	public void saveGroup(Group group) {

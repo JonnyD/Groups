@@ -14,3 +14,6 @@ commands:
   glistall:
     description: Lists all Groups
     usage: /glistall
+  gadd:
+    description: Adds a member to a group
+    usage: /gadd <group> <player> <type>

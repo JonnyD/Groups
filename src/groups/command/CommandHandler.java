@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import groups.command.Command;
+import groups.command.commands.AddMemberCommand;
 import groups.command.commands.CreateGroupCommand;
 import groups.command.commands.DeleteGroupCommand;
 import groups.command.commands.ListAllGroupsCommand;
@@ -17,6 +18,7 @@ public class CommandHandler {
 		addCommand(new CreateGroupCommand());
 		addCommand(new DeleteGroupCommand());
 		addCommand(new ListAllGroupsCommand());
+		addCommand(new AddMemberCommand());
 	}
 	
 	public void addCommand(Command command) {
