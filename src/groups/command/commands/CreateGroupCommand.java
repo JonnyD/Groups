@@ -21,6 +21,16 @@ public class CreateGroupCommand extends PlayerCommand {
 			return true;
 		}
 		String name = args[0];
+		
+		int minNameLength = 3;
+		int maxNameLength = 16;
+		boolean greaterThanEqualMin = name.length() > minNameLength;
+		boolean lessThanEqualMax = name.length() <= maxNameLength;
+		if(!greaterThanEqualMin || !lessThanEqualMax) {
+			sender.sendMessage("Name can't be less than " + minNameLength +
+					" characters and greater than " + maxNameLength + 
+					" characters");
+		}
 		groupManager.createGroup(name, sender.getName());
 		return true;
 	}
