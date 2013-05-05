@@ -100,4 +100,11 @@ public class Member {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", group=" + group + ", playerName="
+				+ playerName + ", role=" + role + ", createTime=" + createTime
+				+ "]";
+	}
 }

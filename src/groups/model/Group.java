@@ -111,4 +111,11 @@ public class Group {
 	public void setMembers(List<Member> members) {
 		this.members = members;
 	}
+
+	@Override
+	public String toString() {
+		return "Group [id=" + id + ", name=" + name + ", members=" + members
+				+ ", personal=" + personal + ", type=" + type + ", createTime="
+				+ createTime + "]";
+	}
 }
