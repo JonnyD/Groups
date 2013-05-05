@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,6 +21,11 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 @Table(name = "groups_group")
 public class Group {
 
+	public enum Type {
+		Include,
+		Exclude
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "group_id", unique = true, nullable = false)
@@ -32,6 +39,10 @@ public class Group {
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
+	
+	@Enumerated(value = EnumType.ORDINAL)
+	@Column(name = "type", nullable = false, length = 2)
+	private Type type = Type.Include;
 	
 	@CreatedTimestamp
 	@Column(name = "create_time", nullable = false)
@@ -85,6 +96,14 @@ public class Group {
 		this.createTime = createTime;
 	}
 	
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
 	public List<Member> getMembers() {
 		return members;
 	}

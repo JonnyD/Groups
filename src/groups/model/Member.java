@@ -40,7 +40,7 @@ public class Member {
 	private String playerName;
 	
 	@Enumerated(value = EnumType.ORDINAL)
-	@Column(name = "role", nullable = false, length = 10)
+	@Column(name = "role", nullable = false, length = 2)
 	private Role role = Role.MEMBER;
 	
 	@CreatedTimestamp
