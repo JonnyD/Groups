@@ -10,11 +10,14 @@ import java.util.List;
 
 public class Dao extends MyDatabase {
 
-	Groups plugin = Groups.getInstance();
-	ConfigManager configManager = plugin.getConfigManager();
+	Groups plugin;
+	ConfigManager configManager;
 	
 	public Dao() {
 		super(Groups.getInstance());
+		
+		plugin = Groups.getInstance();
+		configManager = plugin.getConfigManager();
 		
 		initializeDatabase(
 			configManager.getDriver(),
@@ -23,7 +26,7 @@ public class Dao extends MyDatabase {
 			configManager.getPassword(),
 			configManager.getIsolation(),
 			configManager.isLogging(),
-			configManager.isRebuild()
+			true
 		);
 		
 		generateTables();
@@ -32,13 +35,17 @@ public class Dao extends MyDatabase {
 	@Override
 	protected List<Class<?>> getDatabaseClasses() {
 		return Arrays.asList(
-				Group.class,
-				Member.class
+			Group.class,
+			Member.class
 		);
 	}
 	
 	private void generateTables() {
 		//System.out.println(getDatabase().find(Group.class));
+	}
+	
+	public void save(Object object) {
+		getDatabase().save(object);
 	}
 
 }
