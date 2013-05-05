@@ -38,6 +38,10 @@ public class GroupManager {
 		createGroup(name, username, true);
 	}
 	
+	public Group getGroupByName(String name) {
+		return groups.get(name);
+	}
+	
 	public void saveGroup(Group group) {
 		dao.save(group);
 	}
