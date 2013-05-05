@@ -1,9 +1,14 @@
 package groups.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +22,9 @@ public class Group {
 
 	@Column(name = "name", unique = true, nullable = false, length = 16)
 	private String name;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
+	private List<Member> members = new ArrayList<Member>();
 	
 	public Group() {}
 	
@@ -43,5 +51,17 @@ public class Group {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void addMember(Member member) {
+		members.add(member);
+	}
+	
+	public List<Member> getMembers() {
+		return members;
+	}
+	
+	public void setMembers(List<Member> members) {
+		this.members = members;
 	}
 }
