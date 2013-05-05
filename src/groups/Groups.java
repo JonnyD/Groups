@@ -2,12 +2,14 @@ package groups;
 
 import groups.command.CommandHandler;
 import groups.command.commands.CreateGroupCommand;
+import groups.listener.PlayerListener;
 import groups.manager.ConfigManager;
 import groups.manager.GroupManager;
 import groups.storage.Dao;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Groups extends JavaPlugin {
@@ -30,6 +32,7 @@ public class Groups extends JavaPlugin {
 		commandHandler = new CommandHandler();
 		commandHandler.registerCommands();
 		groupManager.loadGroups();
+		registerEvents();
 		System.out.println("Groups Enabled");
 	}
 	
@@ -51,6 +54,11 @@ public class Groups extends JavaPlugin {
 	
 	public GroupManager getGroupManager() {
 		return groupManager;
+	}
+	
+	private void registerEvents() {
+		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvents(new PlayerListener(), this);
 	}
 
 }
