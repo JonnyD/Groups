@@ -4,12 +4,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import groups.command.Command;
+import groups.command.commands.CreateGroupCommand;
 
 import org.bukkit.command.CommandSender;
 
 public class CommandHandler {
 	private Map<String, Command> commands = new LinkedHashMap<String, Command>();
 
+	public void registerCommands() {
+		addCommand(new CreateGroupCommand());
+	}
+	
 	public void addCommand(Command command) {
 		String identifier = command.getIdentifier().toLowerCase();
 		this.commands.put(identifier, command);
