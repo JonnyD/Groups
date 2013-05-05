@@ -19,4 +19,7 @@ commands:
     usage: /gadd <group> <player> <type>
   gremove:
     description: Removes a member from a group
-    usage: /remove <group> <player>
+    usage: /gremove <group> <player>
+  glistmembers:
+    description: List all members of a group
+    usage: /glistmembers <group>
