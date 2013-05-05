@@ -11,3 +11,6 @@ commands:
   gdelete:
     description: Deletes a Group
     usage: /gdelete <name>
+  glistall:
+    description: Lists all Groups
+    usage: /glistall

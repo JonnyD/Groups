@@ -6,6 +6,7 @@ import java.util.Map;
 import groups.command.Command;
 import groups.command.commands.CreateGroupCommand;
 import groups.command.commands.DeleteGroupCommand;
+import groups.command.commands.ListAllGroupsCommand;
 
 import org.bukkit.command.CommandSender;
 
@@ -15,6 +16,7 @@ public class CommandHandler {
 	public void registerCommands() {
 		addCommand(new CreateGroupCommand());
 		addCommand(new DeleteGroupCommand());
+		addCommand(new ListAllGroupsCommand());
 	}
 	
 	public void addCommand(Command command) {

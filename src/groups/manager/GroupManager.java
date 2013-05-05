@@ -1,6 +1,9 @@
 package groups.manager;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import groups.Groups;
 import groups.model.Group;
@@ -36,6 +39,10 @@ public class GroupManager {
 	
 	public void createPersonalGroup(String name, String username) {
 		createGroup(name, username, true);
+	}
+	
+	public Collection<Group> getAllGroups() {
+		return groups.values();
 	}
 	
 	public Group getGroupByName(String name) {
