@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
@@ -35,7 +36,7 @@ public class Group {
 	private String name;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
-	private List<Member> members = new ArrayList<Member>();
+	private List<Member> members;
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
@@ -43,6 +44,9 @@ public class Group {
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "type", nullable = false, length = 2)
 	private Type type = Type.Include;
+	
+	@Version
+    Timestamp updatetime;
 	
 	@CreatedTimestamp
 	@Column(name = "create_time", nullable = false)
@@ -88,6 +92,14 @@ public class Group {
 		members.add(member);
 	}
 	
+	public Timestamp getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Timestamp updatetime) {
+		this.updatetime = updatetime;
+	}
+
 	public Timestamp getCreateTime() {
 		return createTime;
 	}

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
@@ -42,6 +43,9 @@ public class Member {
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "role", nullable = false, length = 2)
 	private Role role = Role.MEMBER;
+	
+	@Version
+    Timestamp updatetime;
 	
 	@CreatedTimestamp
 	@Column(name = "create_time", nullable = false)
@@ -91,6 +95,14 @@ public class Member {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public Timestamp getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Timestamp updatetime) {
+		this.updatetime = updatetime;
 	}
 
 	public Timestamp getCreateTime() {
