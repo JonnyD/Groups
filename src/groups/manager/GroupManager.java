@@ -1,5 +1,8 @@
 package groups.manager;
 
+import java.util.Map;
+import java.util.Set;
+
 import groups.Groups;
 import groups.model.Group;
 import groups.model.Member;
@@ -8,9 +11,14 @@ import groups.storage.Dao;
 public class GroupManager {
 
 	private Dao dao;
+	private Map<String, Group> groups;
 	
 	public GroupManager() {
 		this.dao = Groups.getInstance().getDao();
+	}
+	
+	public void loadGroups() {
+		groups = dao.findAllGroups();
 	}
 	
 	public void createGroup(String name, String username) {
@@ -33,4 +41,5 @@ public class GroupManager {
 	public void saveGroup(Group group) {
 		dao.save(group);
 	}
+	
 }

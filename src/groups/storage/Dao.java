@@ -7,6 +7,8 @@ import groups.model.Member;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Dao extends MyDatabase {
 
@@ -26,7 +28,7 @@ public class Dao extends MyDatabase {
 			configManager.getPassword(),
 			configManager.getIsolation(),
 			configManager.isLogging(),
-			true
+			false
 		);
 		
 		generateTables();
@@ -46,6 +48,12 @@ public class Dao extends MyDatabase {
 	
 	public void save(Object object) {
 		getDatabase().save(object);
+	}
+	
+	public Map<String, Group> findAllGroups() {
+		return (Map<String, Group>) getDatabase().find(Group.class)  
+			    .setMapKey("name")  
+			    .findMap();  
 	}
 
 }

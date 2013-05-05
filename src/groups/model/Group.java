@@ -18,7 +18,7 @@ public class Group {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id", unique = true, nullable = false)
+	@Column(name = "group_id", unique = true, nullable = false)
 	private Integer id;
 
 	@Column(name = "name", unique = true, nullable = false, length = 16)

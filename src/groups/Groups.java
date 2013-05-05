@@ -29,6 +29,7 @@ public class Groups extends JavaPlugin {
 		groupManager = new GroupManager();
 		commandHandler = new CommandHandler();
 		commandHandler.registerCommands();
+		groupManager.loadGroups();
 		System.out.println("Groups Enabled");
 	}
 	
