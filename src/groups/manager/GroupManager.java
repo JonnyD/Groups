@@ -1,7 +1,6 @@
 package groups.manager;
 
 import java.util.Map;
-import java.util.Set;
 
 import groups.Groups;
 import groups.model.Group;
@@ -31,7 +30,7 @@ public class GroupManager {
 		Member member = new Member(group, username);
 		member.setRole("admin");
 		group.addMember(member);
-		saveGroup(group);
+		addGroup(group);
 	}
 	
 	public void createPersonalGroup(String name, String username) {
@@ -40,6 +39,11 @@ public class GroupManager {
 	
 	public Group getGroupByName(String name) {
 		return groups.get(name);
+	}
+	
+	public void addGroup(Group group) {
+		groups.put(group.getName(), group);
+		saveGroup(group);
 	}
 	
 	public void saveGroup(Group group) {
