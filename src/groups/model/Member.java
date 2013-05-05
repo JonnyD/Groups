@@ -2,6 +2,8 @@ package groups.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -14,6 +16,13 @@ import javax.persistence.UniqueConstraint;
 	@UniqueConstraint(columnNames={"group_id", "player_name"})})
 public class Member {
 
+	public enum Role {
+		ADMIN,
+		MODERATOR,
+		MEMBER,
+		BANNED
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
@@ -26,8 +35,9 @@ public class Member {
 	@Column(name = "player_name", nullable = false, length = 16)
 	private String playerName;
 	
+	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "role", nullable = false, length = 10)
-	private String role = "member";
+	private Role role = Role.MEMBER;
 	
 	public Member() {}
 	
@@ -36,7 +46,7 @@ public class Member {
 		this.playerName = playerName;
 	}
 	
-	public Member(Integer id, Group group, String playerName, String role) {
+	public Member(Integer id, Group group, String playerName, Role role) {
 		this.id = id;
 		this.group = group;
 		this.playerName = playerName;
@@ -67,11 +77,11 @@ public class Member {
 		this.playerName = playerName;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import groups.Groups;
 import groups.model.Group;
 import groups.model.Member;
+import groups.model.Member.Role;
 import groups.storage.Dao;
 
 public class GroupManager {
@@ -28,7 +29,7 @@ public class GroupManager {
 		Group group = new Group(name);
 		group.setPersonal(isPersonal);
 		Member member = new Member(group, username);
-		member.setRole("admin");
+		member.setRole(Role.ADMIN);
 		group.addMember(member);
 		addGroup(group);
 	}
