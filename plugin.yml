@@ -29,3 +29,6 @@ commands:
   gsetpassword:
     description: Set the password for a group
     usage: /gsetpassword <group> <password>
+  gjoingroup:
+    description: Join a group
+    usage: /gjoingroup <group> <password>
