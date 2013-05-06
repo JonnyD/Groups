@@ -135,6 +135,10 @@ public class Group {
 	public void removeMember(Member member) {
 		members.remove(member);
 	}
+	
+	public Member getMemberByName(String name) {
+		return members.get(name);
+	}
 
 	public Map<String, Member> getMembers() {
 		return members;
