@@ -1,6 +1,7 @@
 package groups.command.commands;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.command.CommandSender;
 
@@ -31,16 +32,10 @@ public class GroupInfoCommand extends PlayerCommand {
 			return true;
 		}
 
-		Member found = null;
-		List<Member> members = group.getMembers();
-		for(Member member : members) {
-			if(member.getPlayerName().equals(username)) {
-				found = member;
-				break;
-			}
-		}
+		Map<String, Member> members = group.getMembers();
+		Member foundMember = members.get(username);
 		
-		if(found == null) {
+		if(foundMember == null) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}

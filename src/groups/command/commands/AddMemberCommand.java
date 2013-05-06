@@ -1,6 +1,7 @@
 package groups.command.commands;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -40,16 +41,10 @@ public class AddMemberCommand extends PlayerCommand {
 		}
 
 		String username = args[1];
-		Member found = null;
-		List<Member> members = group.getMembers();
-		for(Member member : members) {
-			if(member.getPlayerName().equals(username)) {
-				found = member;
-				break;
-			}
-		}
+		Map<String, Member> members = group.getMembers();
+		Member foundMember = members.get(username);
 		
-		if(found != null) {
+		if(foundMember != null) {
 			sender.sendMessage(username + " is already a member");
 			return true;
 		}

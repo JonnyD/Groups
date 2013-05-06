@@ -1,6 +1,7 @@
 package groups.command.commands;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,16 +40,10 @@ public class RemoveMemberCommand extends PlayerCommand {
 			return true;
 		}
 
-		List<Member> members = group.getMembers();
+		Map<String, Member> members = group.getMembers();
 		
 		String username = sender.getName();
-		Member senderFound = null;
-		for(Member member : members) {
-			if(member.getPlayerName().equals(username)) {
-				senderFound = member;
-				break;
-			}
-		}
+		Member senderFound = members.get(username);
 		
 		Role senderRole = senderFound.getRole();
 		if(senderFound == null || (senderRole != Role.ADMIN && senderRole != Role.MODERATOR)) {
@@ -57,20 +52,14 @@ public class RemoveMemberCommand extends PlayerCommand {
 		}
 
 		String targetPlayer = args[1];
-		Member targetFound = null;
-		for(Member member : members) {
-			if(member.getPlayerName().equals(targetPlayer)) {
-				targetFound = member;
-				break;
-			}
-		}
+		Member foundTarget = members.get(targetPlayer);
 		
-		if(targetFound == null) {
+		if(foundTarget == null) {
 			sender.sendMessage(targetPlayer + " is not a member");
 			return true;
 		}
 		
-		groupManager.removeMember(group, targetFound);
+		groupManager.removeMember(group, foundTarget);
 		
 		return true;
 	}

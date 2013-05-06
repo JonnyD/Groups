@@ -2,7 +2,9 @@ package groups.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +14,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -36,7 +39,8 @@ public class Group {
 	private String name;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
-	private List<Member> members = new ArrayList<Member>();
+	@MapKey(name = "playerName")
+	private Map<String, Member> members = new HashMap<String, Member>();
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
@@ -114,18 +118,18 @@ public class Group {
 	}
 
 	public void addMember(Member member) {
-		members.add(member);
+		members.put(member.getPlayerName(), member);
 	}
 	
 	public void removeMember(Member member) {
 		members.remove(member);
 	}
 
-	public List<Member> getMembers() {
+	public Map<String, Member> getMembers() {
 		return members;
 	}
 	
-	public void setMembers(List<Member> members) {
+	public void setMembers(Map<String, Member> members) {
 		this.members = members;
 	}
 	
