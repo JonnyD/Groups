@@ -26,3 +26,6 @@ commands:
   ginfo:
     description: Displays information about a group
     usage: /ginfo <group>
+  gsetpassword:
+    description: Set the password for a group
+    usage: /gsetpassword <group> <password>

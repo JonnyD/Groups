@@ -49,6 +49,9 @@ public class Group {
 	@Column(name = "type", nullable = false, length = 2)
 	private Type type = Type.Include;
 	
+	@Column(name = "password", nullable = true, length = 16)
+	private String password;
+	
 	@Version
 	@Column(name = "update_time", nullable = false)
     Timestamp updatetime;
@@ -115,6 +118,14 @@ public class Group {
 
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void addMember(Member member) {
