@@ -10,6 +10,7 @@ import groups.command.commands.DeleteGroupCommand;
 import groups.command.commands.GroupInfoCommand;
 import groups.command.commands.JoinGroupCommand;
 import groups.command.commands.ListAllGroupsCommand;
+import groups.command.commands.ListGroupsCommand;
 import groups.command.commands.ListMembersCommand;
 import groups.command.commands.RemoveMemberCommand;
 import groups.command.commands.SetPasswordCommand;
@@ -29,6 +30,7 @@ public class CommandHandler {
 		addCommand(new GroupInfoCommand());
 		addCommand(new SetPasswordCommand());
 		addCommand(new JoinGroupCommand());
+		addCommand(new ListGroupsCommand());
 	}
 	
 	public void addCommand(Command command) {
