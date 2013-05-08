@@ -35,3 +35,6 @@ commands:
   glistgroups:
     dsecription: Lists groups you are a member of
     usage: /glistgroups
+  gsettype:
+    description: Set the groups type
+    usage: /gsettype <group> <type>

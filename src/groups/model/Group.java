@@ -23,7 +23,7 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 @Table(name = "groups_group")
 public class Group {
 
-	public enum Type {
+	public enum GroupType {
 		Include,
 		Exclude
 	}
@@ -45,7 +45,7 @@ public class Group {
 	
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "type", nullable = false, length = 2)
-	private Type type = Type.Include;
+	private GroupType type = GroupType.Include;
 	
 	@Column(name = "password", nullable = true, length = 16)
 	private String password;
@@ -110,11 +110,11 @@ public class Group {
 		this.createTime = createTime;
 	}
 	
-	public Type getType() {
+	public GroupType getType() {
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(GroupType type) {
 		this.type = type;
 	}
 

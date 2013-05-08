@@ -13,6 +13,7 @@ import groups.command.commands.ListAllGroupsCommand;
 import groups.command.commands.ListGroupsCommand;
 import groups.command.commands.ListMembersCommand;
 import groups.command.commands.RemoveMemberCommand;
+import groups.command.commands.SetGroupTypeCommand;
 import groups.command.commands.SetPasswordCommand;
 
 import org.bukkit.command.CommandSender;
@@ -31,6 +32,7 @@ public class CommandHandler {
 		addCommand(new SetPasswordCommand());
 		addCommand(new JoinGroupCommand());
 		addCommand(new ListGroupsCommand());
+		addCommand(new SetGroupTypeCommand());
 	}
 	
 	public void addCommand(Command command) {
