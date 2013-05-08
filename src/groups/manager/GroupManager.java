@@ -5,14 +5,16 @@ import java.util.Map;
 
 import groups.Groups;
 import groups.model.Group;
+import groups.model.GroupMember;
+import groups.model.GroupMember.Role;
 import groups.model.Member;
-import groups.model.Member.Role;
 import groups.storage.Dao;
 
 public class GroupManager {
 
 	private Dao dao;
 	private Map<String, Group> groups;
+	private Map<String, Member> members;
 	
 	public GroupManager() {
 		this.dao = Groups.getInstance().getDao();
@@ -20,6 +22,11 @@ public class GroupManager {
 	
 	public void loadGroups() {
 		groups = dao.findAllGroups();
+		loadMembers();
+	}
+	
+	public void loadMembers() {
+		members = dao.findAllMembers();
 	}
 	
 	public void createGroup(String name, String username) {
@@ -29,9 +36,20 @@ public class GroupManager {
 	public void createGroup(String name, String username, Boolean isPersonal) {
 		Group group = new Group(name);
 		group.setPersonal(isPersonal);
-		Member member = new Member(group, username);
-		member.setRole(Role.ADMIN);
-		group.addMember(member);
+		
+		Member member = members.get(username);
+		if(member == null) {
+			member = new Member(username);
+			addMember(member);
+		}
+		
+		GroupMember groupMember = new GroupMember();
+		groupMember.setMember(member);
+		groupMember.setGroup(group);
+		groupMember.setRole(Role.ADMIN);
+		
+		group.addGroupMember(groupMember);
+		member.addGroupMember(groupMember);
 		addGroup(group);
 	}
 	
@@ -57,18 +75,6 @@ public class GroupManager {
 		deleteGroup(group);
 	}
 	
-	public void addMember(Group group, String username, Role role) {
-		Member member = new Member(group, username);
-		member.setRole(role);
-		group.addMember(member);
-		saveGroup(group);
-	}
-	
-	public void removeMember(Group group, Member member) {
-		group.removeMember(member);
-		deleteMember(member);
-	}
-	
 	public void updateGroup(Group group) {
 		dao.update(group);
 	}
@@ -81,7 +87,42 @@ public class GroupManager {
 		dao.delete(group);
 	}
 	
-	public void deleteMember(Member member) {
+	public void addMemberToGroup(Group group, String username, Role role) {
+		Member member = members.get(username);
+		if(member == null) {
+			member = new Member(username);
+			addMember(member);
+		}
+		
+		GroupMember groupMember = new GroupMember();
+		groupMember.setMember(member);
+		groupMember.setGroup(group);
+		groupMember.setRole(Role.ADMIN);
+		
+		group.addGroupMember(groupMember);
+		member.addGroupMember(groupMember);
+		saveGroup(group);
+	}
+	
+	public void removeMemberFromGroup(Group group, GroupMember groupMember) {
+		group.removeGroupMemmber(groupMember);
+		saveGroup(group);
+	}
+	
+	public Member getMember(String username) {
+		return members.get(username);
+	}
+	
+	public void addMember(Member member) {
+		members.put(member.getName(), member);
+		saveMember(member);
+	}
+	
+	public void saveMember(Member member) {
+		dao.save(member);
+	}
+	
+	public void deleteMember(GroupMember member) {
 		dao.delete(member);
 	}
 	

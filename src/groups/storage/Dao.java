@@ -3,8 +3,10 @@ package groups.storage;
 import groups.Groups;
 import groups.manager.ConfigManager;
 import groups.model.Group;
+import groups.model.GroupMember;
 import groups.model.Member;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ public class Dao extends MyDatabase {
 			configManager.getPassword(),
 			configManager.getIsolation(),
 			configManager.isLogging(),
-			false
+			true
 		);
 		
 		generateTables();
@@ -37,6 +39,7 @@ public class Dao extends MyDatabase {
 	@Override
 	protected List<Class<?>> getDatabaseClasses() {
 		return Arrays.asList(
+			GroupMember.class,
 			Group.class,
 			Member.class
 		);
@@ -63,5 +66,10 @@ public class Dao extends MyDatabase {
 			    .setMapKey("name")  
 			    .findMap();  
 	}
-
+	
+	public Map<String, Member> findAllMembers() {
+		return (Map<String, Member>) getDatabase().find(Member.class)
+				.setMapKey("name")
+				.findMap();
+	}
 }

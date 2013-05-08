@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.Member;
-import groups.model.Member.Role;
+import groups.model.GroupMember;
+import groups.model.GroupMember.Role;
 
 public class JoinGroupCommand extends PlayerCommand {
 
@@ -32,10 +32,11 @@ public class JoinGroupCommand extends PlayerCommand {
 		}
 		
 		String username = sender.getName();
-		Member member = group.getMemberByName(username);
-		if(member != null) {
+		GroupMember groupMember = group.getGroupMember(username);
+		if(groupMember != null) {
 			String message = "You are already member of this group";
-			if(member.getRole() == Role.BANNED) {
+			Role role = groupMember.getRole();
+			if(role == Role.BANNED) {
 				message = "You are banned from this group";
 			}
 			sender.sendMessage(message);
@@ -56,8 +57,7 @@ public class JoinGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.addMember(group, username, Role.MEMBER);
-			
+		groupManager.addMemberToGroup(group, username, Role.MEMBER);
 		return true;
 	}
 

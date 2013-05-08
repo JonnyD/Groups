@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.Member;
-import groups.model.Member.Role;
+import groups.model.GroupMember;
+import groups.model.GroupMember.Role;
 
 public class SetPasswordCommand extends PlayerCommand {
 
@@ -30,7 +30,6 @@ public class SetPasswordCommand extends PlayerCommand {
 		String name = args[0];
 		
 		Group group = groupManager.getGroupByName(name);
-		
 		if(group == null) {
 			sender.sendMessage("Group doesn't exist");
 			return true;
@@ -41,10 +40,8 @@ public class SetPasswordCommand extends PlayerCommand {
 			return true;
 		}
 
-		Map<String, Member> members = group.getMembers();
-		Member foundMember = members.get(username);
-		
-		if(foundMember == null || foundMember.getRole() != Role.ADMIN) {
+		GroupMember groupMember = group.getGroupMember(username);		
+		if(groupMember == null || groupMember.getRole() != Role.ADMIN) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}

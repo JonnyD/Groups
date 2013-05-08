@@ -1,48 +1,40 @@
 package groups.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @Entity
-@Table(name = "groups_member", uniqueConstraints={
-	@UniqueConstraint(columnNames={"group_id", "player_name"})})
+@Table(name = "groups_member")
 public class Member {
 
-	public enum Role {
-		ADMIN,
-		MODERATOR,
-		MEMBER,
-		BANNED
-	}
-	
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name = "group_id")
-	private Group group;
+	@Column(name = "name", unique = true, nullable = false, length = 16)
+	private String name;
 	
-	@Column(name = "player_name", nullable = false, length = 16)
-	private String playerName;
-	
-	@Enumerated(value = EnumType.ORDINAL)
-	@Column(name = "role", nullable = false, length = 2)
-	private Role role = Role.MEMBER;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
+	@MapKey(name = "groupName")
+	private Map<String, GroupMember> groupMembers = new HashMap<String, GroupMember>();
 	
 	@Version
 	@Column(name = "update_time", nullable = false)
@@ -54,16 +46,13 @@ public class Member {
 	
 	public Member() {}
 	
-	public Member(Group group, String playerName) {
-		this.group = group;
-		this.playerName = playerName;
+	public Member(String username) {
+		this.name = username;
 	}
 	
-	public Member(Integer id, Group group, String playerName, Role role) {
+	public Member(Integer id, String username) {
 		this.id = id;
-		this.group = group;
-		this.playerName = playerName;
-		this.role = role;
+		this.name = username;
 	}
 
 	public Integer getId() {
@@ -74,30 +63,26 @@ public class Member {
 		this.id = id;
 	}
 
-	public Group getGroup() {
-		return group;
+	public String getName() {
+		return name;
 	}
 
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public String getPlayerName() {
-		return playerName;
-	}
-
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
+	public void addGroupMember(GroupMember groupMember) {
+		groupMembers.put(groupMember.getGroupoName(), groupMember);
+	}
+
+	public Map<String, GroupMember> getGroupMembers() {
+		return groupMembers;
+	}
+
+	public void setGroupMembers(Map<String, GroupMember> groupMembers) {
+		this.groupMembers = groupMembers;
+	}
+
 	public Timestamp getUpdatetime() {
 		return updatetime;
 	}
@@ -112,44 +97,5 @@ public class Member {
 
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
-		result = prime * result
-				+ ((playerName == null) ? 0 : playerName.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Member other = (Member) obj;
-		if (group == null) {
-			if (other.group != null)
-				return false;
-		} else if (!group.equals(other.group))
-			return false;
-		if (playerName == null) {
-			if (other.playerName != null)
-				return false;
-		} else if (!playerName.equals(other.playerName))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Member [id=" + id + ", group=" + group + ", playerName="
-				+ playerName + ", role=" + role + ", createTime=" + createTime
-				+ "]";
 	}
 }

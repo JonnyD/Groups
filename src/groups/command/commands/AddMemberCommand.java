@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.Member;
-import groups.model.Member.Role;
+import groups.model.GroupMember;
+import groups.model.GroupMember.Role;
 
 public class AddMemberCommand extends PlayerCommand {
 
@@ -41,10 +41,8 @@ public class AddMemberCommand extends PlayerCommand {
 		}
 
 		String username = args[1];
-		Map<String, Member> members = group.getMembers();
-		Member foundMember = members.get(username);
-		
-		if(foundMember != null) {
+		GroupMember groupMember = group.getGroupMember(username);
+		if(groupMember != null) {
 			sender.sendMessage(username + " is already a member");
 			return true;
 		}
@@ -52,7 +50,6 @@ public class AddMemberCommand extends PlayerCommand {
 		String roleName = args[2];
 		Role role = null;
 		for(Role r : Role.values()) {
-			System.out.println(r.toString());
 			if(r.toString().equalsIgnoreCase(roleName)) {
 				role = Role.valueOf(roleName.toUpperCase());
 				break;
@@ -64,7 +61,7 @@ public class AddMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.addMember(group, username, role);
+		groupManager.addMemberToGroup(group, username, role);
 		
 		return true;
 	}

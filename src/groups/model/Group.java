@@ -1,9 +1,7 @@
 package groups.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -32,15 +30,15 @@ public class Group {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "group_id", unique = true, nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
 	@Column(name = "name", unique = true, nullable = false, length = 25)
 	private String name;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
-	@MapKey(name = "playerName")
-	private Map<String, Member> members = new HashMap<String, Member>();
+	@MapKey(name = "memberName")
+	private Map<String, GroupMember> groupMembers = new HashMap<String, GroupMember>();
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
@@ -126,29 +124,28 @@ public class Group {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}	
+	
+	public GroupMember getGroupMember(String username) {
+		return groupMembers.get(username);
 	}
 
-	public void addMember(Member member) {
-		members.put(member.getPlayerName(), member);
-	}
-	
-	public void removeMember(Member member) {
-		members.remove(member);
-	}
-	
-	public Member getMemberByName(String name) {
-		return members.get(name);
+	public Map<String, GroupMember> getGroupMembers() {
+		return groupMembers;
 	}
 
-	public Map<String, Member> getMembers() {
-		return members;
+	public void setGroupMembers(Map<String, GroupMember> groupMembers) {
+		this.groupMembers = groupMembers;
 	}
-	
-	public void setMembers(Map<String, Member> members) {
-		this.members = members;
-	}
-	
 
+	public void addGroupMember(GroupMember groupMember) {
+		groupMembers.put(groupMember.getMemberName(), groupMember);
+	}
+	
+	public void removeGroupMemmber(GroupMember groupMember) {
+		groupMembers.remove(groupMember);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -176,7 +173,7 @@ public class Group {
 
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", name=" + name + ", members=" + members
+		return "Group [id=" + id + ", name=" + name
 				+ ", personal=" + personal + ", type=" + type + ", createTime="
 				+ createTime + "]";
 	}

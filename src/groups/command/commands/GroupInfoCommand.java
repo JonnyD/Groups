@@ -2,13 +2,15 @@ package groups.command.commands;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.bukkit.command.CommandSender;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
+import groups.model.GroupMember;
+import groups.model.GroupMember.Role;
 import groups.model.Member;
-import groups.model.Member.Role;
 
 public class GroupInfoCommand extends PlayerCommand {
 
@@ -26,22 +28,18 @@ public class GroupInfoCommand extends PlayerCommand {
 		String name = args[0];
 		
 		Group group = groupManager.getGroupByName(name);
-		
 		if(group == null) {
 			sender.sendMessage("Group doesn't exist");
 			return true;
 		}
 
-		Map<String, Member> members = group.getMembers();
-		Member foundMember = members.get(username);
-		
-		if(foundMember == null) {
+		GroupMember groupMember = group.getGroupMember(username);
+		if(groupMember == null) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}
 		
 		sender.sendMessage(group.getName());
-		
 		return true;
 	}
 

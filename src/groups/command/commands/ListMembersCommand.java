@@ -8,8 +8,9 @@ import org.bukkit.entity.Player;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
+import groups.model.GroupMember;
+import groups.model.GroupMember.Role;
 import groups.model.Member;
-import groups.model.Member.Role;
 
 public class ListMembersCommand extends PlayerCommand {
 
@@ -31,23 +32,22 @@ public class ListMembersCommand extends PlayerCommand {
 		String name = args[0];
 		
 		Group group = groupManager.getGroupByName(name);
-		
 		if(group == null) {
 			sender.sendMessage("Group doesn't exist");
 			return true;
 		}
 
-		Map<String, Member> members = group.getMembers();
-		Member foundMember = members.get(username);
-		
-		boolean hasPermission = foundMember.getRole() == Role.ADMIN || foundMember.getRole() == Role.MODERATOR;
-		if(foundMember == null || !hasPermission) {
+		GroupMember groupMember = group.getGroupMember(username);
+		Role role = groupMember.getRole();
+		boolean hasPermission = groupMember != null && (role == Role.ADMIN || role == Role.MODERATOR);
+		if(!hasPermission) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}
 		
-		for(Member member : members.values()) {
-			sender.sendMessage(member.getPlayerName() + " " + member.getRole());
+		for(GroupMember gm : group.getGroupMembers().values()) {
+			Member member = gm.getMember();
+			sender.sendMessage(member.getName() + " " + gm.getRole());
 		}
 		
 		return true;
