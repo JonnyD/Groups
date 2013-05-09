@@ -31,6 +31,11 @@ public class JoinGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
+		if(group.getPersonal()) {
+			sender.sendMessage("You can't join a Personal Group");
+			return true;
+		}
+		
 		String username = sender.getName();
 		GroupMember groupMember = group.getGroupMember(username);
 		if(groupMember != null) {
