@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import com.avaje.ebean.annotation.CreatedTimestamp;
@@ -35,6 +36,9 @@ public class Member {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
 	@MapKey(name = "groupName")
 	private Map<String, GroupMember> groupMembers = new HashMap<String, GroupMember>();
+	
+	@Transient
+	private Group personalGroup;
 	
 	@Version
 	@Column(name = "update_time", nullable = false)
@@ -85,6 +89,23 @@ public class Member {
 
 	public void setGroupMembers(Map<String, GroupMember> groupMembers) {
 		this.groupMembers = groupMembers;
+	}
+	
+	public Group getPersonalGroup() {
+		if(personalGroup == null) {
+			for(GroupMember gm : groupMembers.values()) {
+				Group group = gm.getGroup();
+				if(group.getPersonal()) {
+					personalGroup = group;
+					break;
+				}
+			}
+		}
+		return personalGroup;
+	}
+	
+	public void setPersonalGroup(Group personalGroup) {
+		this.personalGroup = personalGroup;
 	}
 
 	public Timestamp getUpdatetime() {
