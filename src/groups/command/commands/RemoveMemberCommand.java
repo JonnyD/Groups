@@ -46,9 +46,14 @@ public class RemoveMemberCommand extends PlayerCommand {
 		}
 
 		String targetPlayer = args[1];
-		GroupMember targetMember = group.getGroupMember(username);		
+		GroupMember targetMember = group.getGroupMember(targetPlayer);		
 		if(targetMember == null) {
 			sender.sendMessage(targetPlayer + " is not a member");
+			return true;
+		}
+		
+		if(targetPlayer.equalsIgnoreCase(username)) {
+			sender.sendMessage("You can't remove yourself. Use the Leave Command");
 			return true;
 		}
 		

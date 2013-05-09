@@ -143,7 +143,7 @@ public class Group {
 	}
 	
 	public void removeGroupMemmber(GroupMember groupMember) {
-		groupMembers.remove(groupMember);
+		groupMembers.remove(groupMember.getMemberName());
 	}
 	
 	@Override

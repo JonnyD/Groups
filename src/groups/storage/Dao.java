@@ -30,7 +30,7 @@ public class Dao extends MyDatabase {
 			configManager.getPassword(),
 			configManager.getIsolation(),
 			configManager.isLogging(),
-			true
+			false
 		);
 		
 		generateTables();

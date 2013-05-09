@@ -88,16 +88,12 @@ public class GroupManager {
 	}
 	
 	public void addMemberToGroup(Group group, String username, Role role) {
-		Member member = members.get(username);
-		if(member == null) {
-			member = new Member(username);
-			addMember(member);
-		}
+		Member member = getOrCreateMember(username);
 		
 		GroupMember groupMember = new GroupMember();
 		groupMember.setMember(member);
 		groupMember.setGroup(group);
-		groupMember.setRole(Role.ADMIN);
+		groupMember.setRole(role);
 		
 		group.addGroupMember(groupMember);
 		member.addGroupMember(groupMember);
@@ -105,8 +101,23 @@ public class GroupManager {
 	}
 	
 	public void removeMemberFromGroup(Group group, GroupMember groupMember) {
-		group.removeGroupMemmber(groupMember);
+		Member member = getOrCreateMember(groupMember.getMemberName());
+		member.removeGroupMember(groupMember);
+		group.removeGroupMemmber(groupMember);		
+		
+		for(GroupMember gm : group.getGroupMembers().values()) {
+			System.out.println(gm.getMemberName());
+		}
 		saveGroup(group);
+	}
+	
+	public Member getOrCreateMember(String username) {
+		Member member = members.get(username);
+		if(member == null) {
+			member = new Member(username);
+			addMember(member);
+		}
+		return member;
 	}
 	
 	public Member getMember(String username) {

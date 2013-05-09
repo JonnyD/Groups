@@ -92,7 +92,7 @@ public class GroupMember {
 		this.memberName = memberName;
 	}
 	
-	public String getGroupoName() {
+	public String getGroupName() {
 		return group.getName();
 	}
 	
