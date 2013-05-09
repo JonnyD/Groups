@@ -55,7 +55,7 @@ public class SetGroupTypeCommand extends PlayerCommand {
 		}
 		
 		if(type == null) {
-			sender.sendMessage("Group Type " + typeName + " doesn't exist");
+			sender.sendMessage(typeName + " is not a Group Type");
 			return true;
 		}
 		
