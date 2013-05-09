@@ -53,7 +53,14 @@ public class RemoveMemberCommand extends PlayerCommand {
 		}
 		
 		if(targetPlayer.equalsIgnoreCase(username)) {
-			sender.sendMessage("You can't remove yourself. Use the Leave Command");
+			sender.sendMessage("You can't remove yourself. Use the Leave Command,");
+			return true;
+		}
+		
+		Role targetRole = targetMember.getRole();
+		if(senderRole == Role.MODERATOR && 
+				(targetRole == Role.MODERATOR || targetRole == Role.ADMIN)) {
+			sender.sendMessage("You don't have permission to remove this member");
 			return true;
 		}
 		
