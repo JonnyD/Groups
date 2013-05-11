@@ -5,6 +5,7 @@ import java.util.Map;
 
 import groups.command.Command;
 import groups.command.commands.AddMemberCommand;
+import groups.command.commands.ChangeRoleCommand;
 import groups.command.commands.CreateGroupCommand;
 import groups.command.commands.DeleteGroupCommand;
 import groups.command.commands.GroupInfoCommand;
@@ -33,6 +34,7 @@ public class CommandHandler {
 		addCommand(new JoinGroupCommand());
 		addCommand(new ListGroupsCommand());
 		addCommand(new SetGroupTypeCommand());
+		addCommand(new ChangeRoleCommand());
 	}
 	
 	public void addCommand(Command command) {

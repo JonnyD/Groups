@@ -38,3 +38,6 @@ commands:
   gsettype:
     description: Set the groups type
     usage: /gsettype <group> <type>
+  gchangerole:
+    description: Changes the role of a member
+    usage: /gchangerole <group> <member>
