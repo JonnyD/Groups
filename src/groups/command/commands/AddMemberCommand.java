@@ -39,11 +39,31 @@ public class AddMemberCommand extends PlayerCommand {
 			sender.sendMessage("Can't add a member to a Personal Group");
 			return true;
 		}
+		
+		int minNameLength = 3;
+		int maxNameLength = 16;
+		boolean greaterThanEqualMin = groupName.length() >= minNameLength;
+		boolean lessThanEqualMax = groupName.length() <= maxNameLength;
+		if(!greaterThanEqualMin || !lessThanEqualMax) {
+			sender.sendMessage("Username can't be less than " + minNameLength +
+					" characters or greater than " + maxNameLength + 
+					" characters");
+			return true;
+		}
 
-		String username = args[1];
-		GroupMember groupMember = group.getGroupMember(username);
+		String targetUsername = args[1];
+		GroupMember groupMember = group.getGroupMember(targetUsername);
 		if(groupMember != null) {
-			sender.sendMessage(username + " is already a member");
+			sender.sendMessage(targetUsername + " is already a member");
+			return true;
+		}
+		
+		String senderUsername = sender.getName();
+		GroupMember senderMember = group.getGroupMember(senderUsername);		
+		Role senderRole = senderMember.getRole();
+		boolean hasPermission = senderMember != null && (senderRole == Role.ADMIN || senderRole == Role.MODERATOR);
+		if(!hasPermission) {
+			sender.sendMessage("You don't have permission to perform this command");
 			return true;
 		}
 		
@@ -61,8 +81,7 @@ public class AddMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.addMemberToGroup(group, username, role);
-		
+		groupManager.addMemberToGroup(group, targetUsername, role);
 		return true;
 	}
 
