@@ -33,7 +33,7 @@ public class Group {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "name", unique = true, nullable = false, length = 25)
+	@Column(name = "name", unique = true, nullable = false, length = 30)
 	private String name;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
