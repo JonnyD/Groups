@@ -24,14 +24,14 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 public class Group {
 
 	public enum GroupType {
-		Include,
-		Exclude
+		INCLUDE,
+		EXCLUDE
 	}
 	
 	public enum GroupStatus {
-		Enabled,
-		Disabled,
-		Disciplined
+		ENABLED,
+		DISABLED,
+		DISCIPLINED
 	}
 	
 	@Id
@@ -51,11 +51,11 @@ public class Group {
 	
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "type", nullable = false, length = 2)
-	private GroupType type = GroupType.Include;
+	private GroupType type = GroupType.INCLUDE;
 	
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "status", nullable = false, length = 2)
-	private GroupStatus status = GroupStatus.Enabled;
+	private GroupStatus status = GroupStatus.ENABLED;
 	
 	@Column(name = "password", nullable = true, length = 16)
 	private String password;
