@@ -32,7 +32,7 @@ public class ChangeRoleCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.getPersonal()) {
+		if(group.isPersonal()) {
 			sender.sendMessage("Can't modify a Personal Group");
 			return true;
 		}

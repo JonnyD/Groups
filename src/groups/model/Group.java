@@ -28,6 +28,12 @@ public class Group {
 		Exclude
 	}
 	
+	public enum GroupStatus {
+		Enabled,
+		Disabled,
+		Disciplined
+	}
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
@@ -46,6 +52,10 @@ public class Group {
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "type", nullable = false, length = 2)
 	private GroupType type = GroupType.Include;
+	
+	@Enumerated(value = EnumType.ORDINAL)
+	@Column(name = "status", nullable = false, length = 2)
+	private GroupStatus status = GroupStatus.Enabled;
 	
 	@Column(name = "password", nullable = true, length = 16)
 	private String password;
@@ -86,7 +96,7 @@ public class Group {
 		this.name = name;
 	}
 	
-	public Boolean getPersonal() {
+	public Boolean isPersonal() {
 		return personal;
 	}
 

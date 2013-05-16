@@ -35,7 +35,7 @@ public class AddMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.getPersonal()) {
+		if(group.isPersonal()) {
 			sender.sendMessage("Can't add a member to a Personal Group");
 			return true;
 		}
