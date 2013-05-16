@@ -127,6 +127,14 @@ public class Group {
 	public void setType(GroupType type) {
 		this.type = type;
 	}
+	
+	public GroupStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(GroupStatus status) {
+		this.status = status;
+	}
 
 	public String getPassword() {
 		return password;
