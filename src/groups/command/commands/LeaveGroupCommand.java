@@ -1,15 +1,14 @@
 package groups.command.commands;
 
-import java.util.Collection;
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
+
+import java.util.Collection;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class LeaveGroupCommand extends PlayerCommand {
 

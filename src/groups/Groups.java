@@ -1,7 +1,6 @@
 package groups;
 
 import groups.command.CommandHandler;
-import groups.command.commands.CreateGroupCommand;
 import groups.listener.PlayerListener;
 import groups.manager.ConfigManager;
 import groups.manager.GroupManager;

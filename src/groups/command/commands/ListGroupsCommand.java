@@ -1,12 +1,12 @@
 package groups.command.commands;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.Member;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class ListGroupsCommand extends PlayerCommand {
 

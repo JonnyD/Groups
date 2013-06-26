@@ -1,16 +1,10 @@
 package groups.command.commands;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.bukkit.command.CommandSender;
-
 import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
-import groups.model.Member;
+
+import org.bukkit.command.CommandSender;
 
 public class GroupInfoCommand extends PlayerCommand {
 

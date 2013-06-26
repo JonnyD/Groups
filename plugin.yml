@@ -4,6 +4,7 @@ version: 0.1
 description: Groups
 author: Gu3rr1lla
 database: false
+loadbefore: [Citadel]
 commands:
   gcreate:
     description: Creates a Group

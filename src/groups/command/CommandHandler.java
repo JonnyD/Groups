@@ -1,9 +1,5 @@
 package groups.command;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import groups.command.Command;
 import groups.command.commands.AddMemberCommand;
 import groups.command.commands.ChangeRoleCommand;
 import groups.command.commands.CreateGroupCommand;
@@ -16,6 +12,9 @@ import groups.command.commands.ListMembersCommand;
 import groups.command.commands.RemoveMemberCommand;
 import groups.command.commands.SetGroupTypeCommand;
 import groups.command.commands.SetPasswordCommand;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.bukkit.command.CommandSender;
 

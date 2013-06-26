@@ -1,13 +1,13 @@
 package groups.command.commands;
 
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
 import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.Group.GroupType;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
+
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class SetGroupTypeCommand extends PlayerCommand {
 
