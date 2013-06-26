@@ -13,8 +13,8 @@ import groups.storage.Dao;
 public class GroupManager {
 
 	private Dao dao;
-	private Map<String, Group> groups;
-	private Map<String, Member> members;
+	private Map<String, Group> groups = new HashMap<String, Group>();
+	private Map<String, Member> members = new HashMap<String, Group>();
 	
 	public GroupManager() {
 		this.dao = Groups.getInstance().getDao();
@@ -32,29 +32,22 @@ public class GroupManager {
 	public void createGroup(String name, String username) {
 		createGroup(name, username, false);
 	}
+    
+	public void createPersonalGroup(String name, String username) {
+		createGroup(name, username, true);
+	}
 	
 	public void createGroup(String name, String username, Boolean isPersonal) {
 		Group group = new Group(name);
 		group.setPersonal(isPersonal);
 		
-		Member member = members.get(username);
-		if(member == null) {
-			member = new Member(username);
-			addMember(member);
-		}
-		
-		GroupMember groupMember = new GroupMember();
-		groupMember.setMember(member);
-		groupMember.setGroup(group);
-		groupMember.setRole(Role.ADMIN);
+		Member member = getOrCreateMember(username);
+		GroupMember groupMember = createGroupMember(group, member, Role.ADMIN);
 		
 		group.addGroupMember(groupMember);
 		member.addGroupMember(groupMember);
+        
 		addGroup(group);
-	}
-	
-	public void createPersonalGroup(String name, String username) {
-		createGroup(name, username, true);
 	}
 	
 	public Collection<Group> getAllGroups() {
@@ -65,13 +58,25 @@ public class GroupManager {
 		return groups.get(name);
 	}
 	
-	public void addGroup(Group group) {
+	public Group addGroup(Group group) {
+        if(isGroup(group.getName())) {
+            return null;
+        }
+        
 		groups.put(group.getName(), group);
 		saveGroup(group);
+        
+        return group;
 	}
 	
 	public void removeGroup(Group group) {
+        if(!isGroup(group.getName()) {
+            return;
+        }
+        
 		groups.remove(group);
+        members.remove(group);
+        
 		deleteGroup(group);
 	}
 	
@@ -86,37 +91,55 @@ public class GroupManager {
 	public void deleteGroup(Group group) {
 		dao.delete(group);
 	}
-	
-	public void addMemberToGroup(Group group, String username, Role role) {
-		Member member = getOrCreateMember(username);
-		
+    
+    public boolean isGroup(String groupName) {
+        return getGroupByName(groupName) != null;
+    }
+    
+    public Group getGroupByName(String groupName) {
+        return groups.get(groupName);
+    }
+    
+    public GroupMember createGroupMember(Group group, Member member, Role role) {        
 		GroupMember groupMember = new GroupMember();
 		groupMember.setMember(member);
 		groupMember.setGroup(group);
 		groupMember.setRole(role);
+        
+        return groupMember;
+    }
+	
+	public void addMemberToGroup(Group group, String username, Role role) {
+        Member member = getOrCreateMember(username);
+		GroupMember groupMember = createGroupMember(group, member, role);
 		
 		group.addGroupMember(groupMember);
 		member.addGroupMember(groupMember);
+        
 		saveGroup(group);
 	}
 	
 	public void removeMemberFromGroup(Group group, GroupMember groupMember) {
 		Member member = getOrCreateMember(groupMember.getMemberName());
+        
 		member.removeGroupMember(groupMember);
 		group.removeGroupMemmber(groupMember);		
 		
 		for(GroupMember gm : group.getGroupMembers().values()) {
 			System.out.println(gm.getMemberName());
 		}
+        
 		saveGroup(group);
 	}
 	
 	public Member getOrCreateMember(String username) {
 		Member member = members.get(username);
+        
 		if(member == null) {
 			member = new Member(username);
 			addMember(member);
 		}
+        
 		return member;
 	}
 	
