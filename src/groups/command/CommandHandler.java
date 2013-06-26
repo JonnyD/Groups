@@ -7,6 +7,7 @@ import groups.command.commands.DeleteGroupCommand;
 import groups.command.commands.GroupInfoCommand;
 import groups.command.commands.JoinGroupCommand;
 import groups.command.commands.ListAllGroupsCommand;
+import groups.command.commands.ListAllMembersCommand;
 import groups.command.commands.ListGroupsCommand;
 import groups.command.commands.ListMembersCommand;
 import groups.command.commands.RemoveMemberCommand;
@@ -34,6 +35,7 @@ public class CommandHandler {
 		addCommand(new ListGroupsCommand());
 		addCommand(new SetGroupTypeCommand());
 		addCommand(new ChangeRoleCommand());
+		addCommand(new ListAllMembersCommand());
 	}
 	
 	public void addCommand(Command command) {

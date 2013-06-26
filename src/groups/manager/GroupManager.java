@@ -144,6 +144,10 @@ public class GroupManager {
 		return members.get(username);
 	}
 	
+	public Collection<Member> getAllMembers() {
+		return members.values();
+	}
+	
 	public void addMember(Member member) {
 		members.put(member.getName(), member);
 		saveMember(member);
