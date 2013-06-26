@@ -96,6 +96,10 @@ public class Group {
 		this.name = name;
 	}
 	
+	public String getNormalizedName() {
+		return name.toLowerCase();
+	}
+	
 	public Boolean isPersonal() {
 		return personal;
 	}

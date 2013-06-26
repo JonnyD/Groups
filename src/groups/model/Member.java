@@ -75,6 +75,10 @@ public class Member {
 		this.name = name;
 	}
 	
+	public String getNormalizedName() {
+		return name.toLowerCase();
+	}
+	
 	public void addGroupMember(GroupMember groupMember) {
 		groupMembers.put(groupMember.getGroupName(), groupMember);
 	}
