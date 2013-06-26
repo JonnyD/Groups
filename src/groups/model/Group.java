@@ -195,8 +195,10 @@ public class Group {
 
 	@Override
 	public String toString() {
-		return "Group [id=" + id + ", name=" + name
-				+ ", personal=" + personal + ", type=" + type + ", createTime="
-				+ createTime + "]";
+		return "Group [id=" + id + ", name=" + name + ", groupMembers="
+				+ groupMembers + ", personal=" + personal + ", type=" + type
+				+ ", status=" + status + ", password=" + password
+				+ ", updatetime=" + updatetime + ", createTime=" + createTime
+				+ "]";
 	}
 }

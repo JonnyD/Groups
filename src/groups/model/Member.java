@@ -149,6 +149,12 @@ public class Member {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Member [id=" + id + ", name=" + name + ", groupMembers="
+				+ groupMembers + ", personalGroup=" + personalGroup
+				+ ", updatetime=" + updatetime + ", createTime=" + createTime
+				+ "]";
+	}
 }
