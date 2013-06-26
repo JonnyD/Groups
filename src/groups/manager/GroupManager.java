@@ -1,8 +1,5 @@
 package groups.manager;
 
-import java.util.Collection;
-import java.util.Map;
-
 import groups.Groups;
 import groups.model.Group;
 import groups.model.GroupMember;
@@ -10,11 +7,15 @@ import groups.model.GroupMember.Role;
 import groups.model.Member;
 import groups.storage.Dao;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GroupManager {
 
 	private Dao dao;
 	private Map<String, Group> groups = new HashMap<String, Group>();
-	private Map<String, Member> members = new HashMap<String, Group>();
+	private Map<String, Member> members = new HashMap<String, Member>();
 	
 	public GroupManager() {
 		this.dao = Groups.getInstance().getDao();
@@ -54,28 +55,28 @@ public class GroupManager {
 		return groups.values();
 	}
 	
-	public Group getGroupByName(String name) {
-		return groups.get(name);
-	}
-	
 	public Group addGroup(Group group) {
-        if(isGroup(group.getName())) {
+		String groupName = group.getNormalizedName();
+		
+        if(isGroup(groupName)) {
             return null;
         }
         
-		groups.put(group.getName(), group);
+		groups.put(groupName, group);
 		saveGroup(group);
         
         return group;
 	}
 	
 	public void removeGroup(Group group) {
-        if(!isGroup(group.getName()) {
+		String groupName = group.getNormalizedName();
+		
+        if(!isGroup(groupName)) {
             return;
         }
         
-		groups.remove(group);
-        members.remove(group);
+		groups.remove(groupName);
+        members.remove(groupName);
         
 		deleteGroup(group);
 	}
@@ -124,10 +125,6 @@ public class GroupManager {
         
 		member.removeGroupMember(groupMember);
 		group.removeGroupMemmber(groupMember);		
-		
-		for(GroupMember gm : group.getGroupMembers().values()) {
-			System.out.println(gm.getMemberName());
-		}
         
 		saveGroup(group);
 	}
