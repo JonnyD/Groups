@@ -12,9 +12,9 @@ commands:
   gdelete:
     description: Deletes a Group
     usage: /gdelete <name>
-  glistall:
+  glistallgroups:
     description: Lists all Groups
-    usage: /glistall
+    usage: /glistallgroups
   gadd:
     description: Adds a member to a group
     usage: /gadd <group> <player> <type>
@@ -24,6 +24,9 @@ commands:
   glistmembers:
     description: List all members of a group
     usage: /glistmembers <group>
+  glistallmembers:
+    description: List all members
+    usage: /glistallmembers
   ginfo:
     description: Displays information about a group
     usage: /ginfo <group>

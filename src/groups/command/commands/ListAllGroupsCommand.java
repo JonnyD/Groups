@@ -13,9 +13,9 @@ public class ListAllGroupsCommand extends PlayerCommand {
 	public ListAllGroupsCommand() {
 		super("List All Groups");
 		setDescription("Lists all Groups");
-		setUsage("/glistall");
+		setUsage("/glistallgroups");
 		setArgumentRange(0,0);
-		setIdentifier("glistall");
+		setIdentifier("glistallgroups");
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class ListAllGroupsCommand extends PlayerCommand {
 		}
 		
 		for(Group group : groups) {
-			sender.sendMessage("Name: " + group.getName() + ", Members: " + group.getGroupMembers().size() + ", Personal: " + group.isPersonal());
+			sender.sendMessage(group.toString());
 		}
 		
 		return true;
