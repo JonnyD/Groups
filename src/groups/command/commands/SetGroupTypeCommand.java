@@ -34,7 +34,7 @@ public class SetGroupTypeCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.isPersonal()) {
+		if(group.getPersonal()) {
 			sender.sendMessage("Can't modify a Personal Group");
 			return true;
 		}

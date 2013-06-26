@@ -98,7 +98,19 @@ public class GroupManager {
     }
     
     public Group getGroupByName(String groupName) {
-        return groups.get(groupName);
+        Group group = groups.get(groupName);
+        
+        if(group == null) {
+        	group = dao.findGroupByName(groupName);
+        	
+        	if(group == null) {
+        		return null;
+        	}
+        	
+    		groups.put(group.getNormalizedName(), group);
+        }
+        
+        return group;
     }
     
     public GroupMember createGroupMember(Group group, Member member, Role role) {        

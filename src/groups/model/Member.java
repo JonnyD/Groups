@@ -96,7 +96,7 @@ public class Member {
 		if(personalGroup == null) {
 			for(GroupMember gm : groupMembers.values()) {
 				Group group = gm.getGroup();
-				if(group.isPersonal()) {
+				if(group.getPersonal()) {
 					personalGroup = group;
 					break;
 				}

@@ -32,7 +32,7 @@ public class ListAllMembersCommand extends PlayerCommand {
 		}
 		
 		for(Member member : members) {
-			sender.sendMessage(member.toString());
+			sender.sendMessage(member.getName());
 		}
 		
 		return true;

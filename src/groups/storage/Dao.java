@@ -70,4 +70,10 @@ public class Dao extends MyDatabase {
 				.setMapKey("name")
 				.findMap();
 	}
+	
+	public Group findGroupByName(String name) {
+        return getDatabase().createQuery(Group.class, "find Group where name = :name")
+                .setParameter("name", name)
+                .findUnique();
+    }
 }

@@ -33,7 +33,7 @@ public class ListAllGroupsCommand extends PlayerCommand {
 		}
 		
 		for(Group group : groups) {
-			sender.sendMessage(group.toString());
+			sender.sendMessage(group.getName());
 		}
 		
 		return true;

@@ -29,7 +29,7 @@ public class ListGroupsCommand extends PlayerCommand {
 		for(GroupMember gm : member.getGroupMembers().values()) {
 			Group group = gm.getGroup();
 			String message = group.getName() + " " + gm.getRole();
-			if(group.isPersonal()) {
+			if(group.getPersonal()) {
 				message += " " + " (Personal Group)";
 			}
 			sender.sendMessage(message);

@@ -33,7 +33,7 @@ public class DeleteGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.isPersonal()) {
+		if(group.getPersonal()) {
 			sender.sendMessage("Can't delete a Personal Group");
 			return true;
 		}

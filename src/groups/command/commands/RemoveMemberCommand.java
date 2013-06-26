@@ -31,7 +31,7 @@ public class RemoveMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.isPersonal()) {
+		if(group.getPersonal()) {
 			sender.sendMessage("Can't remove a member from a Personal Group");
 			return true;
 		}

@@ -31,7 +31,7 @@ public class JoinGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.isPersonal()) {
+		if(group.getPersonal()) {
 			sender.sendMessage("You can't join a Personal Group");
 			return true;
 		}

@@ -35,7 +35,7 @@ public class LeaveGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		if(group.isPersonal()) {
+		if(group.getPersonal()) {
 			sender.sendMessage("You can't leave a Personal Group");
 			return true;
 		}

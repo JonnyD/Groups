@@ -100,7 +100,7 @@ public class Group {
 		return name.toLowerCase();
 	}
 	
-	public Boolean isPersonal() {
+	public Boolean getPersonal() {
 		return personal;
 	}
 
