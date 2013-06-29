@@ -4,6 +4,7 @@ import groups.command.commands.AddMemberCommand;
 import groups.command.commands.ChangeRoleCommand;
 import groups.command.commands.CreateGroupCommand;
 import groups.command.commands.DeleteGroupCommand;
+import groups.command.commands.DisciplineGroupCommand;
 import groups.command.commands.GroupInfoCommand;
 import groups.command.commands.JoinGroupCommand;
 import groups.command.commands.ListAllGroupsCommand;
@@ -11,6 +12,7 @@ import groups.command.commands.ListAllMembersCommand;
 import groups.command.commands.ListGroupsCommand;
 import groups.command.commands.ListMembersCommand;
 import groups.command.commands.RemoveMemberCommand;
+import groups.command.commands.ReprieveGroupCommand;
 import groups.command.commands.SetGroupTypeCommand;
 import groups.command.commands.SetPasswordCommand;
 
@@ -36,6 +38,8 @@ public class CommandHandler {
 		addCommand(new SetGroupTypeCommand());
 		addCommand(new ChangeRoleCommand());
 		addCommand(new ListAllMembersCommand());
+		addCommand(new DisciplineGroupCommand());
+		addCommand(new ReprieveGroupCommand());
 	}
 	
 	public void addCommand(Command command) {

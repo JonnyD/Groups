@@ -31,7 +31,8 @@ public class Group {
 	public enum GroupStatus {
 		ENABLED,
 		DISABLED,
-		DISCIPLINED
+		DISCIPLINED,
+		DELETED
 	}
 	
 	@Id

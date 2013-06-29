@@ -7,8 +7,10 @@ import groups.model.GroupMember.Role;
 import groups.model.Member;
 import groups.storage.Dao;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GroupManager {
@@ -173,4 +175,20 @@ public class GroupManager {
 		dao.delete(member);
 	}
 	
+	public List<Group> getMembersGroups(String username) {
+		Member member = getMember(username);
+		List<Group> groups = new ArrayList<Group>();
+		for(GroupMember gm : member.getGroupMembers().values()) {
+			Group group = gm.getGroup();
+			groups.add(group);
+		}
+		return groups;
+	}
+	
+	public GroupMember getGroupMemberByUsernameGroup(String username, String groupName) {
+		Member member = getMember(username);
+		Map<String, GroupMember> groupMembers = member.getGroupMembers();
+		GroupMember groupMember = groupMembers.get(groupName);
+		return groupMember;
+	}
 }
