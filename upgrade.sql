@@ -68,14 +68,7 @@ SELECT gm.id AS memberId, g.id AS groupId, 1, now(), now()
 FROM moderator m, groups_member gm, groups_group g
 WHERE gm.name = m.memberName AND g.name = m.factionName;
 
--- Citadel 2 Schema
-SELECT * FROM faction;
-SELECT * FROM personal_group;
-SELECT * FROM member;
-SELECT * FROM faction_member;
-SELECT * FROM moderator;
-
--- Citadel 3 Schema
+-- Citadel 3 Schema Selects
 SELECT * FROM groups_member;
 SELECT * FROM groups_group;
 SELECT * FROM groups_group_member;
