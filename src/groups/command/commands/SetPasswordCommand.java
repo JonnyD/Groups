@@ -4,6 +4,7 @@ import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
+import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,8 +39,8 @@ public class SetPasswordCommand extends PlayerCommand {
 			return true;
 		}
 
-		GroupMember groupMember = group.getGroupMember(username);		
-		if(groupMember == null || groupMember.getRole() != Role.ADMIN) {
+		Membership senderMembership = group.getMembership(username);		
+		if(senderMembership == null || !senderMembership.isAdmin()) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}

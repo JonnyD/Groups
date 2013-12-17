@@ -4,6 +4,7 @@ import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
+import groups.model.Membership;
 
 import java.util.Collection;
 
@@ -40,18 +41,18 @@ public class LeaveGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		GroupMember groupMember = group.getGroupMember(username);
-		if(groupMember == null || groupMember.getRole() == Role.BANNED) {
+		Membership senderMembership = group.getMembership(username);
+		if(senderMembership == null || senderMembership.isAdmin()) {
 			sender.sendMessage("You are not a member of this group");
 			return true;
 		}
 		
-		Collection<GroupMember> groupMembers = group.getGroupMembers().values();
-		if(groupMember.getRole() == Role.ADMIN) {
+		Collection<Membership> memberships = group.getMemberships().values();
+		if(senderMembership.isAdmin()) {
 			int countAdmins = 0;
 			
-			for(GroupMember gm : groupMembers) {
-				if(gm.getRole() == Role.ADMIN) {
+			for(Membership membership : memberships) {
+				if(!membership.equals(senderMembership) && membership.isAdmin()) {
 					countAdmins++;
 				}
 			}
@@ -63,7 +64,7 @@ public class LeaveGroupCommand extends PlayerCommand {
 			}
 		}
 		
-		group.removeGroupMemmber(groupMember);
+		group.removeMembership(senderMembership);
 		return true;
 	}
 

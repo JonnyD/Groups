@@ -3,8 +3,8 @@ package groups.storage;
 import groups.Groups;
 import groups.manager.ConfigManager;
 import groups.model.Group;
-import groups.model.GroupMember;
 import groups.model.Member;
+import groups.model.Membership;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +37,7 @@ public class Dao extends MyDatabase {
 	@Override
 	protected List<Class<?>> getDatabaseClasses() {
 		return Arrays.asList(
-			GroupMember.class,
+			Membership.class,
 			Group.class,
 			Member.class
 		);

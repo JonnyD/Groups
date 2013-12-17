@@ -4,6 +4,7 @@ import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
+import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,16 +39,15 @@ public class ChangeRoleCommand extends PlayerCommand {
 		}
 
 		String targetUsername = args[1];
-		GroupMember groupMember = group.getGroupMember(targetUsername);
-		if(groupMember == null) {
+		Membership targetMembership = group.getMembership(targetUsername);
+		if(targetMembership == null) {
 			sender.sendMessage(targetUsername + " is not a member");
 			return true;
 		}
 		
 		String senderUsername = sender.getName();
-		GroupMember senderMember = group.getGroupMember(senderUsername);		
-		Role senderRole = senderMember.getRole();
-		boolean hasPermission = senderMember != null && senderRole == Role.ADMIN;
+		Membership senderMembership = group.getMembership(senderUsername);
+		boolean hasPermission = senderMembership != null && senderMembership.isAdmin();
 		if(!hasPermission) {
 			sender.sendMessage("You don't have permission to perform this command");
 			return true;
@@ -67,7 +67,7 @@ public class ChangeRoleCommand extends PlayerCommand {
 			return true;
 		}
 		
-		Role currentRole = groupMember.getRole();
+		Role currentRole = targetMembership.getRole();
 		if(role == currentRole) {
 			sender.sendMessage(targetUsername + " is already a " + currentRole);
 			return true;

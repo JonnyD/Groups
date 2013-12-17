@@ -4,6 +4,7 @@ import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.Member;
+import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,9 +27,9 @@ public class ListGroupsCommand extends PlayerCommand {
 		
 		String username = sender.getName();
 		Member member = groupManager.getMember(username);
-		for(GroupMember gm : member.getGroupMembers().values()) {
-			Group group = gm.getGroup();
-			String message = group.getName() + " " + gm.getRole();
+		for(Membership membership : member.getMemberships().values()) {
+			Group group = membership.getGroup();
+			String message = group.getName() + " " + membership.getRole();
 			if(group.getPersonal()) {
 				message += " " + " (Personal Group)";
 			}

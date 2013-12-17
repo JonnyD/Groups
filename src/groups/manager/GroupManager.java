@@ -2,8 +2,8 @@ package groups.manager;
 
 import groups.Groups;
 import groups.model.Group;
-import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
+import groups.model.Membership;
+import groups.model.Membership.Role;
 import groups.model.Member;
 import groups.storage.Dao;
 
@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GroupManager {
 
@@ -45,10 +46,10 @@ public class GroupManager {
 		group.setPersonal(isPersonal);
 		
 		Member member = getOrCreateMember(username);
-		GroupMember groupMember = createGroupMember(group, member, Role.ADMIN);
+		Membership membership = createMembership(group, member, Role.ADMIN);
 		
-		group.addGroupMember(groupMember);
-		member.addGroupMember(groupMember);
+		group.addMembership(membership);
+		member.addMembership(membership);
         
 		addGroup(group);
 	}
@@ -115,30 +116,30 @@ public class GroupManager {
         return group;
     }
     
-    public GroupMember createGroupMember(Group group, Member member, Role role) {        
-		GroupMember groupMember = new GroupMember();
-		groupMember.setMember(member);
-		groupMember.setGroup(group);
-		groupMember.setRole(role);
+    public Membership createMembership(Group group, Member member, Role role) {        
+    	Membership membership = new Membership();
+    	membership.setMember(member);
+    	membership.setGroup(group);
+    	membership.setRole(role);
         
-        return groupMember;
+        return membership;
     }
 	
 	public void addMemberToGroup(Group group, String username, Role role) {
         Member member = getOrCreateMember(username);
-		GroupMember groupMember = createGroupMember(group, member, role);
+        Membership membership = createMembership(group, member, role);
 		
-		group.addGroupMember(groupMember);
-		member.addGroupMember(groupMember);
+		group.addMembership(membership);
+		member.addMembership(membership);
         
 		saveGroup(group);
 	}
 	
-	public void removeMemberFromGroup(Group group, GroupMember groupMember) {
-		Member member = getOrCreateMember(groupMember.getMemberName());
+	public void removeMemberFromGroup(Group group, Membership membership) {
+		Member member = getOrCreateMember(membership.getMemberName());
         
-		member.removeGroupMember(groupMember);
-		group.removeGroupMemmber(groupMember);		
+		member.removeMembership(membership);
+		group.removeMembership(membership);		
         
 		saveGroup(group);
 	}
@@ -171,24 +172,7 @@ public class GroupManager {
 		dao.save(member);
 	}
 	
-	public void deleteMember(GroupMember member) {
-		dao.delete(member);
-	}
-	
-	public List<Group> getMembersGroups(String username) {
-		Member member = getMember(username);
-		List<Group> groups = new ArrayList<Group>();
-		for(GroupMember gm : member.getGroupMembers().values()) {
-			Group group = gm.getGroup();
-			groups.add(group);
-		}
-		return groups;
-	}
-	
-	public GroupMember getGroupMemberByUsernameGroup(String username, String groupName) {
-		Member member = getMember(username);
-		Map<String, GroupMember> groupMembers = member.getGroupMembers();
-		GroupMember groupMember = groupMembers.get(groupName);
-		return groupMember;
+	public void deleteMembership(Membership membership) {
+		dao.delete(membership);
 	}
 }

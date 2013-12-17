@@ -3,6 +3,7 @@ package groups.command.commands;
 import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
+import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;
 
@@ -27,8 +28,8 @@ public class GroupInfoCommand extends PlayerCommand {
 			return true;
 		}
 
-		GroupMember groupMember = group.getGroupMember(username);
-		if(groupMember == null) {
+		Membership senderMembership = group.getMembership(username);
+		if(senderMembership == null) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}

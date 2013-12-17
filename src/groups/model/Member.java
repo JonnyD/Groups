@@ -1,8 +1,13 @@
 package groups.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,31 +31,32 @@ public class Member {
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
-	
+
 	@Column(name = "name", unique = true, nullable = false, length = 16)
 	private String name;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
-	@MapKey(name = "groupName")
-	private Map<String, GroupMember> groupMembers = new HashMap<String, GroupMember>();
-	
+    @MapKey(name = "groupName")
+    private Map<String, Membership> memberships = new HashMap<String, Membership>();
+
 	@Transient
 	private Group personalGroup;
-	
+
 	@Version
 	@Column(name = "update_time", nullable = false)
-    Timestamp updatetime;
-	
+	Timestamp updatetime;
+
 	@CreatedTimestamp
 	@Column(name = "create_time", nullable = false)
-    Timestamp createTime;
-	
-	public Member() {}
-	
+	Timestamp createTime;
+
+	public Member() {
+	}
+
 	public Member(String username) {
 		this.name = username;
 	}
-	
+
 	public Member(Integer id, String username) {
 		this.id = id;
 		this.name = username;
@@ -71,32 +77,49 @@ public class Member {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getNormalizedName() {
 		return name.toLowerCase();
 	}
-	
-	public void addGroupMember(GroupMember groupMember) {
-		groupMembers.put(groupMember.getGroupName(), groupMember);
-	}
-	
-	public void removeGroupMember(GroupMember groupMember) {
-		groupMembers.remove(groupMember);
+
+	public void addMembership(Membership membership) {
+		memberships.put(membership.getGroupName(), membership);
 	}
 
-	public Map<String, GroupMember> getGroupMembers() {
-		return groupMembers;
+	public void removeMembership(Membership membership) {
+		memberships.remove(membership);
 	}
 
-	public void setGroupMembers(Map<String, GroupMember> groupMembers) {
-		this.groupMembers = groupMembers;
+	public Map<String, Membership> getMemberships() {
+		return memberships;
+	}
+
+	public void setMemberships(Map<String, Membership> memberships) {
+		this.memberships = memberships;
 	}
 	
+	public Membership getMembership(String memberName) {
+		return memberships.get(memberName);
+	}
+
+	public List<Group> getGroups() {
+		List<Group> groups = new ArrayList<Group>();
+		for (Membership membership : memberships.values()) {
+			groups.add(membership.getGroup());
+		}
+		return groups;
+	}
+	
+	public Group getGroup(String groupName) {
+		Membership membership = memberships.get(groupName);
+		return membership.getGroup();
+	}
+
 	public Group getPersonalGroup() {
-		if(personalGroup == null) {
-			for(GroupMember gm : groupMembers.values()) {
-				Group group = gm.getGroup();
-				if(group.getPersonal()) {
+		if (personalGroup == null) {
+			for (Membership m : memberships.values()) {
+				Group group = m.getGroup();
+				if (group.getPersonal()) {
 					personalGroup = group;
 					break;
 				}
@@ -104,7 +127,7 @@ public class Member {
 		}
 		return personalGroup;
 	}
-	
+
 	public void setPersonalGroup(Group personalGroup) {
 		this.personalGroup = personalGroup;
 	}
@@ -152,8 +175,8 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", name=" + name + ", groupMembers="
-				+ groupMembers + ", personalGroup=" + personalGroup
+		return "Member [id=" + id + ", name=" + name + ", memberships="
+				+ memberships + ", personalGroup=" + personalGroup
 				+ ", updatetime=" + updatetime + ", createTime=" + createTime
 				+ "]";
 	}

@@ -17,8 +17,8 @@ import javax.persistence.Version;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
 @Entity
-@Table(name = "groups_group_member")
-public class GroupMember {
+@Table(name = "groups_membership")
+public class Membership {
 
 	public enum Role {
 		ADMIN,
@@ -58,7 +58,7 @@ public class GroupMember {
 	@Column(name = "create_time", nullable = false)
     Timestamp createTime;
 	
-	public GroupMember() {}
+	public Membership() {}
 	
 	public Integer getId() {
 		return id;
@@ -111,6 +111,22 @@ public class GroupMember {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public boolean isAdmin() {
+		return this.role == Role.ADMIN;
+	}
+	
+	public boolean isModerator() {
+		return this.role == Role.MODERATOR;
+	}
+	
+	public boolean isMember() {
+		return this.role == Role.MEMBER;
+	}
+	
+	public boolean isBanned() {
+		return this.role == Role.BANNED;
 	}
 	
 	public Timestamp getUpdatetime() {

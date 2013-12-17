@@ -4,6 +4,7 @@ import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
+import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -37,17 +38,16 @@ public class RemoveMemberCommand extends PlayerCommand {
 		}
 		
 		String username = sender.getName();
-		GroupMember senderMember = group.getGroupMember(username);		
-		Role senderRole = senderMember.getRole();
-		boolean hasPermission = senderMember != null && (senderRole == Role.ADMIN || senderRole == Role.MODERATOR);
+		Membership senderMembership = group.getMembership(username);	
+		boolean hasPermission = senderMembership != null && (senderMembership.isAdmin() || senderMembership.isModerator());
 		if(!hasPermission) {
 			sender.sendMessage("You don't have permission to perform this command");
 			return true;
 		}
 
 		String targetPlayer = args[1];
-		GroupMember targetMember = group.getGroupMember(targetPlayer);		
-		if(targetMember == null) {
+		Membership targetMembership = group.getMembership(targetPlayer);		
+		if(targetMembership == null) {
 			sender.sendMessage(targetPlayer + " is not a member");
 			return true;
 		}
@@ -57,14 +57,13 @@ public class RemoveMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		Role targetRole = targetMember.getRole();
-		if(senderRole == Role.MODERATOR && 
-				(targetRole == Role.MODERATOR || targetRole == Role.ADMIN)) {
+		if(senderMembership.isModerator() && 
+				(targetMembership.isModerator() || targetMembership.isAdmin())) {
 			sender.sendMessage("You don't have permission to remove this member");
 			return true;
 		}
 		
-		groupManager.removeMemberFromGroup(group, targetMember);
+		groupManager.removeMemberFromGroup(group, targetMembership);
 		return true;
 	}
 

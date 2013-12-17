@@ -5,6 +5,7 @@ import groups.model.Group;
 import groups.model.GroupMember;
 import groups.model.GroupMember.Role;
 import groups.model.Member;
+import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,17 +35,19 @@ public class ListMembersCommand extends PlayerCommand {
 			return true;
 		}
 
-		GroupMember groupMember = group.getGroupMember(username);
-		Role role = groupMember.getRole();
-		boolean hasPermission = groupMember != null && (role == Role.ADMIN || role == Role.MODERATOR);
+		Membership senderMembership = group.getMembership(username);
+		boolean hasPermission = senderMembership != null 
+				&& (senderMembership.isAdmin() 
+						|| senderMembership.isModerator()
+						|| senderMembership.isMember());
 		if(!hasPermission) {
 			sender.sendMessage("You don't have permission to perform this action");
 			return true;
 		}
 		
-		for(GroupMember gm : group.getGroupMembers().values()) {
-			Member member = gm.getMember();
-			sender.sendMessage(member.getName() + " " + gm.getRole());
+		for(Membership membership : group.getMemberships().values()) {
+			Member member = membership.getMember();
+			sender.sendMessage(member.getName() + " " + membership.getRole());
 		}
 		
 		return true;
