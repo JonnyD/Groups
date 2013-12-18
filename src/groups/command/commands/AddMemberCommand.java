@@ -2,10 +2,9 @@ package groups.command.commands;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
 import groups.model.Member;
 import groups.model.Membership;
+import groups.model.Membership.Role;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -66,14 +65,7 @@ public class AddMemberCommand extends PlayerCommand {
 		}
 		
 		String roleName = args[2];
-		Role role = null;
-		for(Role r : Role.values()) {
-			if(r.toString().equalsIgnoreCase(roleName)) {
-				role = Role.valueOf(roleName.toUpperCase());
-				break;
-			}
-		}
-		
+		Role role = groupManager.getRoleByName(roleName);		
 		if(role == null) {
 			sender.sendMessage("Role " + roleName + " doesn't exist");
 			return true;

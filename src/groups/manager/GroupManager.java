@@ -175,4 +175,15 @@ public class GroupManager {
 	public void deleteMembership(Membership membership) {
 		dao.delete(membership);
 	}
+	
+	public Role getRoleByName(String roleName) {
+		Role role = null;
+		for(Role r : Role.values()) {
+			if(r.toString().equalsIgnoreCase(roleName)) {
+				role = Role.valueOf(roleName.toUpperCase());
+				break;
+			}
+		}
+		return role;
+	}
 }

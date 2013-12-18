@@ -41,8 +41,7 @@ public class JoinGroupCommand extends PlayerCommand {
 		Membership senderMembership = group.getMembership(username);
 		if(senderMembership != null) {
 			String message = "You are already member of this group";
-			Role role = senderMembership.getRole();
-			if(role == Role.BANNED) {
+			if(senderMembership.isBanned()) {
 				message = "You are banned from this group";
 			}
 			sender.sendMessage(message);
