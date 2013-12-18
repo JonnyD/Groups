@@ -3,8 +3,6 @@ package groups.command.commands;
 import groups.command.PlayerCommand;
 import groups.model.Group;
 import groups.model.Group.GroupType;
-import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
 import groups.model.Membership;
 
 import org.bukkit.command.CommandSender;

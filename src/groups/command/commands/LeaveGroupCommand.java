@@ -2,8 +2,6 @@ package groups.command.commands;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
 import groups.model.Membership;
 
 import java.util.Collection;
@@ -47,7 +45,7 @@ public class LeaveGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		Collection<Membership> memberships = group.getMemberships().values();
+		Collection<Membership> memberships = group.getMemberships();
 		if(senderMembership.isAdmin()) {
 			int countAdmins = 0;
 			

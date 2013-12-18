@@ -2,7 +2,6 @@ package groups.command.commands;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.GroupMember;
 import groups.model.Member;
 import groups.model.Membership;
 
@@ -27,7 +26,7 @@ public class ListGroupsCommand extends PlayerCommand {
 		
 		String username = sender.getName();
 		Member member = groupManager.getMember(username);
-		for(Membership membership : member.getMemberships().values()) {
+		for(Membership membership : member.getMemberships()) {
 			Group group = membership.getGroup();
 			String message = group.getName() + " " + membership.getRole();
 			if(group.getPersonal()) {

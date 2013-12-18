@@ -2,8 +2,6 @@ package groups.command.commands;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
 import groups.model.Member;
 import groups.model.Membership;
 
@@ -45,7 +43,7 @@ public class ListMembersCommand extends PlayerCommand {
 			return true;
 		}
 		
-		for(Membership membership : group.getMemberships().values()) {
+		for(Membership membership : group.getMemberships()) {
 			Member member = membership.getMember();
 			sender.sendMessage(member.getName() + " " + membership.getRole());
 		}

@@ -2,9 +2,8 @@ package groups.command.commands;
 
 import groups.command.PlayerCommand;
 import groups.model.Group;
-import groups.model.GroupMember;
-import groups.model.GroupMember.Role;
 import groups.model.Membership;
+import groups.model.Membership.Role;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -54,19 +53,19 @@ public class ChangeRoleCommand extends PlayerCommand {
 		}
 		
 		String roleName = args[2];
-		Role role = groupManager.getRoleByName(roleName);	
-		if(role == null) {
+		Role targetRole = groupManager.getRoleByName(roleName);	
+		if(targetRole == null) {
 			sender.sendMessage("Role " + roleName + " doesn't exist");
 			return true;
 		}
 		
 		Role currentRole = targetMembership.getRole();
-		if(role == currentRole) {
+		if(targetRole == currentRole) {
 			sender.sendMessage(targetUsername + " is already a " + currentRole);
 			return true;
 		}
 		
-		groupMember.setRole(role);
+		targetMembership.setRole(targetRole);
 		return true;
 	}
 
