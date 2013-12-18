@@ -2,6 +2,7 @@ package groups.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +50,7 @@ public class Group {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
     @MapKey(name = "memberName")
-    private Map<String, Membership> memberships = new HashMap<String, Membership>();
+    private Map<String, Membership> membershipMap = new HashMap<String, Membership>();
 	
 	@Column(name = "personal", nullable = false)
 	private Boolean personal = false;
@@ -153,36 +154,40 @@ public class Group {
 		this.password = password;
 	}	
 	
-	public Map<String, Membership> getMemberships() {
-		return memberships;
+	public Map<String, Membership> getMembershipMap() {
+		return this.membershipMap;
 	}
 
-	public void setMemberships(Map<String, Membership> memberships) {
-		this.memberships = memberships;
+	public void setMembershipMap(Map<String, Membership> membershipMap) {
+		this.membershipMap = membershipMap;
 	}
 
 	public void addMembership(Membership membership) {
-		memberships.put(membership.getMemberName(), membership);
+		membershipMap.put(membership.getMemberName(), membership);
 	}
 	
 	public void removeMembership(Membership membership) {
-		memberships.remove(membership);
+		membershipMap.remove(membership);
 	}
 	
 	public Membership getMembership(String memberName) {
-		return memberships.get(memberName);
+		return membershipMap.get(memberName);
+	}
+	
+	public Collection<Membership> getMemberships() {
+		return this.membershipMap.values();
 	}
 	
 	public List<Member> getMembers() {
 		List<Member> members = new ArrayList<Member>();
-		for (Membership membership : memberships.values()) {
+		for (Membership membership : getMemberships()) {
 			members.add(membership.getMember());
 		}
 		return members;
 	}
 	
 	public Member getMember(String memberName) {
-		Membership membership = memberships.get(memberName);
+		Membership membership = membershipMap.get(memberName);
 		return membership.getMember();
 	}
 	
@@ -214,7 +219,7 @@ public class Group {
 	@Override
 	public String toString() {
 		return "Group [id=" + id + ", name=" + name + ", memberships="
-				+ memberships + ", personal=" + personal + ", type=" + type
+				+ membershipMap + ", personal=" + personal + ", type=" + type
 				+ ", status=" + status + ", password=" + password
 				+ ", updatetime=" + updatetime + ", createTime=" + createTime
 				+ "]";

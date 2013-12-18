@@ -37,7 +37,7 @@ public class Member {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
     @MapKey(name = "groupName")
-    private Map<String, Membership> memberships = new HashMap<String, Membership>();
+    private Map<String, Membership> membershipMap = new HashMap<String, Membership>();
 
 	@Transient
 	private Group personalGroup;
@@ -83,41 +83,45 @@ public class Member {
 	}
 
 	public void addMembership(Membership membership) {
-		memberships.put(membership.getGroupName(), membership);
+		membershipMap.put(membership.getGroupName(), membership);
 	}
 
 	public void removeMembership(Membership membership) {
-		memberships.remove(membership);
+		membershipMap.remove(membership);
 	}
 
-	public Map<String, Membership> getMemberships() {
-		return memberships;
+	public Map<String, Membership> getMembershipMap() {
+		return membershipMap;
 	}
 
-	public void setMemberships(Map<String, Membership> memberships) {
-		this.memberships = memberships;
+	public void setMembershipMap(Map<String, Membership> memberships) {
+		this.membershipMap = memberships;
 	}
 	
 	public Membership getMembership(String memberName) {
-		return memberships.get(memberName);
+		return membershipMap.get(memberName);
+	}
+	
+	public Collection<Membership> getMemberships() {
+		return this.membershipMap.values();
 	}
 
 	public List<Group> getGroups() {
 		List<Group> groups = new ArrayList<Group>();
-		for (Membership membership : memberships.values()) {
+		for (Membership membership : getMemberships()) {
 			groups.add(membership.getGroup());
 		}
 		return groups;
 	}
 	
 	public Group getGroup(String groupName) {
-		Membership membership = memberships.get(groupName);
+		Membership membership = membershipMap.get(groupName);
 		return membership.getGroup();
 	}
 
 	public Group getPersonalGroup() {
 		if (personalGroup == null) {
-			for (Membership m : memberships.values()) {
+			for (Membership m : membershipMap.values()) {
 				Group group = m.getGroup();
 				if (group.getPersonal()) {
 					personalGroup = group;
@@ -176,7 +180,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", name=" + name + ", memberships="
-				+ memberships + ", personalGroup=" + personalGroup
+				+ membershipMap + ", personalGroup=" + personalGroup
 				+ ", updatetime=" + updatetime + ", createTime=" + createTime
 				+ "]";
 	}
