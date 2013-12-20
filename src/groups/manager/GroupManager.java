@@ -66,7 +66,7 @@ public class GroupManager {
         }
         
 		groups.put(groupName, group);
-		saveGroup(group);
+		save(group);
         
         return group;
 	}
@@ -81,19 +81,15 @@ public class GroupManager {
 		groups.remove(groupName);
         members.remove(groupName);
         
-		deleteGroup(group);
+		delete(group);
 	}
 	
-	public void updateGroup(Group group) {
-		dao.update(group);
+	public void update(Object object) {
+		dao.update(object);
 	}
 	
-	public void saveGroup(Group group) {
-		dao.save(group);
-	}
-	
-	public void deleteGroup(Group group) {
-		dao.delete(group);
+	public void delete(Object object) {
+		dao.delete(object);
 	}
     
     public boolean isGroup(String groupName) {
@@ -132,7 +128,7 @@ public class GroupManager {
 		group.addMembership(membership);
 		member.addMembership(membership);
         
-		saveGroup(group);
+		save(group);
 	}
 	
 	public void removeMemberFromGroup(Group group, Membership membership) {
@@ -141,7 +137,7 @@ public class GroupManager {
 		member.removeMembership(membership);
 		group.removeMembership(membership);		
         
-		saveGroup(group);
+		save(group);
 	}
 	
 	public Member getOrCreateMember(String username) {
@@ -165,11 +161,11 @@ public class GroupManager {
 	
 	public void addMember(Member member) {
 		members.put(member.getName(), member);
-		saveMember(member);
+		save(member);
 	}
 	
-	public void saveMember(Member member) {
-		dao.save(member);
+	public void save(Object object) {
+		dao.save(object);
 	}
 	
 	public void deleteMembership(Membership membership) {
@@ -185,5 +181,16 @@ public class GroupManager {
 			}
 		}
 		return role;
+	}
+	
+	public boolean isGroupNameValid(String name) {
+		int minNameLength = 3;
+		int maxNameLength = 16;
+		boolean greaterThanEqualMin = name.length() >= minNameLength;
+		boolean lessThanEqualMax = name.length() <= maxNameLength;
+		if(!greaterThanEqualMin || !lessThanEqualMax) {
+			return false;
+		}
+		return true;		
 	}
 }
