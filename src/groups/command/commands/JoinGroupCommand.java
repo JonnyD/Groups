@@ -47,13 +47,13 @@ public class JoinGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		String groupPassword = group.getPassword();
-		boolean joinable = !groupPassword.equals("") && !groupPassword.equalsIgnoreCase("NULL") && groupPassword != null;
+		boolean joinable = group.isJoinable();
 		if(!joinable) {
 			sender.sendMessage("Group not joinable");
 			return true;
 		}
 		
+		String groupPassword = group.getPassword();
 		String enteredPassword = args[1];
 		boolean enteredCorrectPassword = enteredPassword.equals(groupPassword);
 		if(!enteredCorrectPassword) {

@@ -191,6 +191,12 @@ public class Group {
 		return membership.getMember();
 	}
 	
+	public boolean isJoinable() {
+		return !this.password.equals("") 
+				&& !this.password.equalsIgnoreCase("NULL") 
+				&& this.password != null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
