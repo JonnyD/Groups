@@ -43,8 +43,7 @@ public class DeleteGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.removeGroup(group);
-		
+		groupManager.removeGroup(group);	
 		return true;
 	}
 

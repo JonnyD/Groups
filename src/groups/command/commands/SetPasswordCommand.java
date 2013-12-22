@@ -45,6 +45,7 @@ public class SetPasswordCommand extends PlayerCommand {
 		
 		String password = args[1];
 		group.setPassword(password);
+		groupManager.update(group);
 		
 		return true;
 	}

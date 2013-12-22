@@ -68,7 +68,7 @@ public class Membership {
 		this.id = id;
 	}
 
-	public GroupMember(Group group, Member member) {
+	public Membership(Group group, Member member) {
 		this.group = group;
 		this.member = member;
 	}

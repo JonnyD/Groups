@@ -66,6 +66,7 @@ public class ChangeRoleCommand extends PlayerCommand {
 		}
 		
 		targetMembership.setRole(targetRole);
+		groupManager.update(targetMembership);
 		return true;
 	}
 
