@@ -59,6 +59,12 @@ public class Membership {
     Timestamp createTime;
 	
 	public Membership() {}
+
+	public Membership(Group group, Member member, Role role) {
+		this.group = group;
+		this.member = member;
+		this.role = role;
+	}
 	
 	public Integer getId() {
 		return id;
@@ -66,11 +72,6 @@ public class Membership {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Membership(Group group, Member member) {
-		this.group = group;
-		this.member = member;
 	}
 	
 	public Group getGroup() {
@@ -144,4 +145,39 @@ public class Membership {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result + ((member == null) ? 0 : member.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Membership other = (Membership) obj;
+		if (group == null) {
+			if (other.group != null)
+				return false;
+		} else if (!group.equals(other.group))
+			return false;
+		
+		if (member == null) {
+			if (other.member != null)
+				return false;
+		} else if (!member.equals(other.member))
+			return false;
+		
+		return true;
+	}
+	
+	
 }
