@@ -14,8 +14,10 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import com.avaje.ebean.annotation.CacheStrategy;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 
+@CacheStrategy(readOnly = true)
 @Entity
 @Table(name = "groups_membership")
 public class Membership {
@@ -79,7 +81,10 @@ public class Membership {
 	}
 
 	public void setGroup(Group group) {
-		this.group = group;
+		if (this.group == null) {
+			this.group = group;
+			group.addMembership(this);
+		}
 	}
 	
 	public String getMemberName() {
