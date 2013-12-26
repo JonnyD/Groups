@@ -62,7 +62,7 @@ public class LeaveGroupCommand extends PlayerCommand {
 			}
 		}
 		
-		group.removeMembership(senderMembership);
+		membershipManager.removeMembership(senderMembership);
 		return true;
 	}
 

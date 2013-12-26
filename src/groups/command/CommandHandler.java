@@ -7,6 +7,7 @@ import groups.command.commands.DeleteGroupCommand;
 import groups.command.commands.DisciplineGroupCommand;
 import groups.command.commands.GroupInfoCommand;
 import groups.command.commands.JoinGroupCommand;
+import groups.command.commands.LeaveGroupCommand;
 import groups.command.commands.ListAllGroupsCommand;
 import groups.command.commands.ListAllMembersCommand;
 import groups.command.commands.ListGroupsCommand;
@@ -40,6 +41,7 @@ public class CommandHandler {
 		addCommand(new ListAllMembersCommand());
 		addCommand(new DisciplineGroupCommand());
 		addCommand(new ReprieveGroupCommand());
+		addCommand(new LeaveGroupCommand());
 	}
 	
 	public void addCommand(Command command) {

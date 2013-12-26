@@ -15,7 +15,7 @@ public class JoinGroupCommand extends PlayerCommand {
 		setDescription("Join a group");
 		setUsage("/cjoin <group> <password");
 		setArgumentRange(1,1);
-		setIdentifier("ctjoin");
+		setIdentifier("cjoin");
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class JoinGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.addMemberToGroup(group, username, Role.MEMBER);
+		membershipManager.addMembership(group, username, Role.MEMBER);
 		return true;
 	}
 

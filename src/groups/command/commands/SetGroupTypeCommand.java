@@ -58,8 +58,7 @@ public class SetGroupTypeCommand extends PlayerCommand {
 			return true;
 		}
 		
-		group.setType(type);	
-		groupManager.update(group);
+		groupManager.updateType(group, type);
 		return true;
 	}
 

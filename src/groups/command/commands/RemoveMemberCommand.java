@@ -61,7 +61,7 @@ public class RemoveMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.removeMemberFromGroup(group, targetMembership);
+		membershipManager.removeMembership(targetMembership);
 		return true;
 	}
 

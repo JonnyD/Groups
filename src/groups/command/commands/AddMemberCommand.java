@@ -32,14 +32,10 @@ public class AddMemberCommand extends PlayerCommand {
 			return true;
 		}
 		
-		int minNameLength = 3;
-		int maxNameLength = 16;
-		boolean greaterThanEqualMin = groupName.length() >= minNameLength;
-		boolean lessThanEqualMax = groupName.length() <= maxNameLength;
-		if(!greaterThanEqualMin || !lessThanEqualMax) {
-			sender.sendMessage("Username can't be less than " + minNameLength +
-					" characters or greater than " + maxNameLength + 
-					" characters");
+		boolean isGroupNameValid = groupManager.isGroupNameValid(groupName);
+		if (!isGroupNameValid) {
+			sender.sendMessage("Username can't be less than 3 "
+					+ "characters or greater than 16 characters");
 			return true;
 		}
 		
@@ -65,13 +61,13 @@ public class AddMemberCommand extends PlayerCommand {
 		}
 		
 		String roleName = args[2];
-		Role role = groupManager.getRoleByName(roleName);		
+		Role role = membershipManager.getRoleByName(roleName);		
 		if(role == null) {
 			sender.sendMessage("Role " + roleName + " doesn't exist");
 			return true;
 		}
 		
-		groupManager.addMemberToGroup(group, targetUsername, role);
+		membershipManager.addMembership(group, targetUsername, role);
 		return true;
 	}
 

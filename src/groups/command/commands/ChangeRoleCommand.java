@@ -13,8 +13,8 @@ public class ChangeRoleCommand extends PlayerCommand {
 	public ChangeRoleCommand() {
 		super("Change Role");
 		setDescription("Change the role of a member");
-		setUsage("/gchangerole <group> <member>");
-		setArgumentRange(2,2);
+		setUsage("/gchangerole <group> <member> <role>");
+		setArgumentRange(3,3);
 		setIdentifier("gchangerole");
 	}
 
@@ -53,7 +53,7 @@ public class ChangeRoleCommand extends PlayerCommand {
 		}
 		
 		String roleName = args[2];
-		Role targetRole = groupManager.getRoleByName(roleName);	
+		Role targetRole = membershipManager.getRoleByName(roleName);	
 		if(targetRole == null) {
 			sender.sendMessage("Role " + roleName + " doesn't exist");
 			return true;
@@ -65,8 +65,7 @@ public class ChangeRoleCommand extends PlayerCommand {
 			return true;
 		}
 		
-		targetMembership.setRole(targetRole);
-		groupManager.update(targetMembership);
+		membershipManager.changeRole(targetMembership, targetRole);
 		return true;
 	}
 

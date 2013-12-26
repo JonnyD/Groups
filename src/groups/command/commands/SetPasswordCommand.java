@@ -13,7 +13,7 @@ public class SetPasswordCommand extends PlayerCommand {
 		super("Set Password");
 		setDescription("Set the password of a group");
 		setUsage("/gsetpassword <group> <password>");
-		setArgumentRange(1,1);
+		setArgumentRange(2,2);
 		setIdentifier("gsetpassword");
 	}
 
@@ -44,9 +44,7 @@ public class SetPasswordCommand extends PlayerCommand {
 		}
 		
 		String password = args[1];
-		group.setPassword(password);
-		groupManager.update(group);
-		
+		groupManager.updatePassword(group, password);
 		return true;
 	}
 

@@ -35,7 +35,7 @@ public class CreateGroupCommand extends PlayerCommand {
 			return true;
 		}
 		
-		groupManager.createGroup(name, sender.getName());
+		groupManager.addGroup(name, sender.getName());
 		return true;
 	}
 

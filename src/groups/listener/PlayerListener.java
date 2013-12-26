@@ -4,10 +4,12 @@ import groups.Groups;
 import groups.manager.GroupManager;
 import groups.model.Group;
 
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PlayerListener implements Listener {
@@ -21,7 +23,7 @@ public class PlayerListener implements Listener {
 		String name = "personal_" + username;
 		Group group = groupManager.getGroupByName(name);
 		if(group == null) {
-			groupManager.createPersonalGroup(name, username);
+			groupManager.addPersonalGroup(name, username);
 		}
 	}
 }

@@ -25,7 +25,7 @@ public class ListGroupsCommand extends PlayerCommand {
 		}
 		
 		String username = sender.getName();
-		Member member = groupManager.getMember(username);
+		Member member = memberManager.getMemberByName(username);
 		for(Membership membership : member.getMemberships()) {
 			Group group = membership.getGroup();
 			String message = group.getName() + " " + membership.getRole();

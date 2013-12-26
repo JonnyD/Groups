@@ -4,7 +4,12 @@ import groups.command.CommandHandler;
 import groups.listener.PlayerListener;
 import groups.manager.ConfigManager;
 import groups.manager.GroupManager;
-import groups.storage.Dao;
+import groups.manager.MemberManager;
+import groups.manager.MembershipManager;
+import groups.service.GroupService;
+import groups.service.MemberService;
+import groups.service.MembershipService;
+import groups.storage.DAO;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,8 +20,10 @@ public class Groups extends JavaPlugin {
 
 	private static Groups instance;
 	private ConfigManager configManager;
-	private Dao dao;
+	private DAO dao;
 	private GroupManager groupManager;
+	private MemberManager memberManager;
+	private MembershipManager membershipManager;
 	private CommandHandler commandHandler;
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -26,11 +33,18 @@ public class Groups extends JavaPlugin {
 	public void onEnable() {
 		instance = this;
 		configManager = new ConfigManager();
-		dao = new Dao();
-		groupManager = new GroupManager();
+		dao = new DAO();
+		
+		GroupService groupService = new GroupService(dao);
+		MemberService memberService = new MemberService(dao);
+		MembershipService membershipService = new MembershipService(dao);
+		
+		groupManager = new GroupManager(groupService, memberService, membershipService);
+		memberManager = new MemberManager(memberService);
+		membershipManager = new MembershipManager(membershipService, memberService);
+		
 		commandHandler = new CommandHandler();
 		commandHandler.registerCommands();
-		groupManager.loadGroups();
 		registerEvents();
 		System.out.println("Groups Enabled");
 	}
@@ -47,12 +61,20 @@ public class Groups extends JavaPlugin {
 		return configManager;
 	}
 	
-	public Dao getDao() {
+	public DAO getDao() {
 		return dao;
 	}
 	
 	public GroupManager getGroupManager() {
 		return groupManager;
+	}
+	
+	public MemberManager getMemberManager() {
+		return memberManager;
+	}
+	
+	public MembershipManager getMembershipManager() {
+		return this.membershipManager;
 	}
 	
 	private void registerEvents() {

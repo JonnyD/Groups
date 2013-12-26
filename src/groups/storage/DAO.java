@@ -9,13 +9,14 @@ import groups.model.Membership;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class Dao extends MyDatabase {
+public class DAO extends EbeanDatabase {
 
 	Groups plugin;
 	ConfigManager configManager;
 	
-	public Dao() {
+	public DAO() {
 		super(Groups.getInstance());
 		
 		plugin = Groups.getInstance();
@@ -59,21 +60,53 @@ public class Dao extends MyDatabase {
 		getDatabase().delete(object);
 	}
 	
-	public Map<String, Group> findAllGroups() {
-		return (Map<String, Group>) getDatabase().find(Group.class)  
+	public Set<Group> findAllGroups() {
+		return (Set<Group>) getDatabase().find(Group.class)
 			    .setMapKey("name")  
 			    .findMap();  
 	}
 	
-	public Map<String, Member> findAllMembers() {
-		return (Map<String, Member>) getDatabase().find(Member.class)
+	public Set<Member> findAllMembers() {
+		return (Set<Member>) getDatabase().find(Member.class)
 				.setMapKey("name")
 				.findMap();
 	}
 	
 	public Group findGroupByName(String name) {
-        return getDatabase().createQuery(Group.class, "find Group where name = :name")
-                .setParameter("name", name)
-                .findUnique();
+		String normalizedName = name.toLowerCase();
+		return getDatabase().find(Group.class)
+				.where()
+				.eq("name", normalizedName)
+				.findUnique();
     }
+	
+	public Member findMemberByName(String name) {
+		String normalizedName = name.toLowerCase();
+		return getDatabase().find(Member.class)
+				.where()
+				.eq("name", normalizedName)
+				.findUnique();
+	}
+	
+	public Membership findMembershipByMemberAndGroup(Member member, Group group) {
+		return getDatabase().find(Membership.class)
+				.where()
+				.eq("member_id", member.getId())
+				.eq("group_id", group.getId())
+				.findUnique();
+	}
+	
+	public Membership findMembershipById(int id, boolean immutable) {
+		return getDatabase().find(Membership.class)
+				.setReadOnly(immutable)
+				.setId(id)
+				.findUnique();
+	}
+	
+	public Group findGroupById(int id, boolean immutable) {
+		return getDatabase().find(Group.class)
+				.setReadOnly(immutable)
+				.setId(id)
+				.findUnique();
+	}
 }

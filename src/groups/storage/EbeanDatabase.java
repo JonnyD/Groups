@@ -22,7 +22,7 @@ import com.avaje.ebeaninternal.api.SpiEbeanServer;
 import com.avaje.ebeaninternal.server.ddl.DdlGenerator;
 import com.avaje.ebeaninternal.server.lib.sql.TransactionIsolation;
 
-public abstract class MyDatabase {
+public abstract class EbeanDatabase {
     private JavaPlugin javaPlugin;
     private ClassLoader classLoader;
     private Level loggerLevel;
@@ -35,7 +35,7 @@ public abstract class MyDatabase {
      * 
      * @param javaPlugin Plugin instancing this database
      */
-    public MyDatabase(JavaPlugin javaPlugin) {
+    public EbeanDatabase(JavaPlugin javaPlugin) {
         //Store the JavaPlugin
         this.javaPlugin = javaPlugin;
 

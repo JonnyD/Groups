@@ -81,10 +81,7 @@ public class Membership {
 	}
 
 	public void setGroup(Group group) {
-		if (this.group == null) {
-			this.group = group;
-			group.addMembership(this);
-		}
+		this.group = group;
 	}
 	
 	public String getMemberName() {

@@ -25,7 +25,7 @@ public class ListAllMembersCommand extends PlayerCommand {
 			sender.sendMessage("You don't have permission to perform this command");
 		}
 		
-		Collection<Member> members = groupManager.getAllMembers();
+		Collection<Member> members = memberManager.getAllMembers();
 		if(members.size() == 0) {
 			sender.sendMessage("No data");
 			return true;

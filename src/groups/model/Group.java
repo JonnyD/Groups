@@ -68,11 +68,11 @@ public class Group {
 	
 	@Version
 	@Column(name = "update_time", nullable = false)
-    Timestamp updatetime;
+    private Timestamp updatetime;
 	
 	@CreatedTimestamp
 	@Column(name = "create_time", nullable = false)
-    Timestamp createTime;
+    private Timestamp createTime;
 
 	public Group() {}
 	
